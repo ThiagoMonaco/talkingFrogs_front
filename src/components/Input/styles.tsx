@@ -12,11 +12,23 @@ interface InputFieldProps {
 }
 
 
-export const InputStyled = styled.div`
+export const InputStyled = styled.div<InputFieldProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
+  
+  > input {
+    width: 100%;
+    font-size: ${fontSize.large}rem;
+    border: 1.5px solid ${({ withError }) => withError ? colors.error : colors.black};
+    border-right: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
+    border-bottom: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    outline: none;
+    z-index: 2;
+  }
 `
 
 export const InputLabelStyled = styled.label<InputLabelProps>`
@@ -25,17 +37,7 @@ export const InputLabelStyled = styled.label<InputLabelProps>`
   color: ${({ withError }) => withError ? colors.error : colors.black};
 `
 
-export const InputFieldStyled = styled.input<InputFieldProps>`
-  width: 100%;
-  font-size: ${fontSize.large}rem;
-  border: 1.5px solid ${({ withError }) => withError ? colors.error : colors.black};
-  border-right: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
-  border-bottom: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  outline: none;
-  z-index: 2;
-`
+
 
 const topToBottomKeyframe = keyframes`
   from {

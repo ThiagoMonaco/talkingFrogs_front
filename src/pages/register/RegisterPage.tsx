@@ -1,13 +1,14 @@
 'use client'
 
 import React from 'react'
-import { RegisterContainerStyled, RegisterTitleStyled } from './styles'
+import { RegisterContainerStyled, RegisterFormStyled, RegisterTitleStyled } from './styles'
 import FullScreenBanner from '@components/FullScreenBanner/FullScreenBanner.component'
 import { registerFrog } from '@images/index'
 import { colors } from '@/helpers/ui/colors'
-import { useFormik } from 'formik'
+import {Form, Formik, useFormik} from 'formik'
 import Input from '@components/Input/Input.component'
-import { validateUsername, validateEmailPattern, validateLength } from '@/helpers/validations'
+import { validateUsername, validateEmailPattern, validateLength, validatePassword } from '@/helpers/validations'
+import { log } from 'util'
 
 interface RegisterFormData {
     username: string
@@ -28,7 +29,7 @@ export default function RegisterPage() {
         console.log(values)
     }
 
-    const getUsernameErrorMessage = (username: string) => {
+    const formValidateUsername = (username: string) => {
         if (!validateUsername(username)) {
             return 'Username required'
         }
@@ -36,7 +37,7 @@ export default function RegisterPage() {
         return ''
     }
 
-    const getEmailErrorMessage = (email: string) => {
+    const formValidateEmail = (email: string) => {
         if (!validateLength(email)) {
             return 'Email required'
         }
@@ -48,19 +49,17 @@ export default function RegisterPage() {
         return ''
     }
 
-    const formik= useFormik({
-        initialValues,
-        onSubmit,
-        validateOnChange: false,
-        validate: (values) => {
-            const errors: Partial<RegisterFormData> = {}
+    const formValidatePassword = (password: string) => {
+        if (!validateLength(password)) {
+            return 'Password required'
+        }
 
-            errors.username = getUsernameErrorMessage(values.username)
-            errors.email = getEmailErrorMessage(values.email)
+        if (!validatePassword(password)) {
+            return 'Password must contain at least 8 characters, 1 uppercase, 1 lowercase and 1 number'
+        }
+        return ''
+    }
 
-            return errors
-        },
-    })
 
     return (
         <>
@@ -71,48 +70,42 @@ export default function RegisterPage() {
                 side={'right'}>
                 <RegisterContainerStyled>
                     <RegisterTitleStyled> Register </RegisterTitleStyled>
-                    <form onSubmit={formik.handleSubmit}>
-                        <Input
-                            id={'username'}
-                            name={'username'}
-                            onChange={formik.handleChange}
-                            value={formik.values.username}
-                            label={'Username'}
-                            errorMessage={formik.errors.username}
-                            onBlur={formik.handleBlur}
-                        />
+                    <Formik
+                        onSubmit={onSubmit}
+                        initialValues={initialValues}
+                        validateOnChange={false}
+                        validateOnBlur={true}
+                    >
+                        <Form>
+                            <Input
+                                id={'username'}
+                                name={'username'}
+                                label={'Username'}
+                                validate={formValidateUsername}
+                            />
 
-                        <Input
-                            id={'email'}
-                            name={'email'}
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            label={'Email'}
-                            errorMessage={formik.errors.email}
-                            onBlur={formik.handleBlur}
-                        />
+                            <Input
+                                id={'email'}
+                                name={'email'}
+                                label={'Email'}
+                                validate={formValidateEmail}
+                            />
 
-                        <Input
-                            id={'password'}
-                            name={'password'}
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
-                            label={'Password'}
-                            errorMessage={formik.errors.password}
-                            onBlur={formik.handleBlur}
-                        />
+                            <Input
+                                id={'password'}
+                                name={'password'}
+                                label={'Password'}
+                                validate={formValidatePassword}
+                            />
 
-                        <Input
-                            id={'confirmPassword'}
-                            name={'confirmPassword'}
-                            onChange={formik.handleChange}
-                            value={formik.values.confirmPassword}
-                            label={'Password confirmation'}
-                            errorMessage={formik.errors.confirmPassword}
-                            onBlur={formik.handleBlur}
-                        />
+                            <Input
+                                id={'confirmPassword'}
+                                name={'confirmPassword'}
+                                label={'Password confirmation'}
+                            />
                         <button type={'submit'}> Submit </button>
-                    </form>
+                        </Form>
+                    </Formik>
                 </RegisterContainerStyled>
             </FullScreenBanner>
         </>

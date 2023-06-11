@@ -14,3 +14,8 @@ export const RegisterTitleStyled = styled.div`
   font-size: ${fontSize.xlarge}rem;
   font-weight: 600;
 `
+
+export const RegisterFormStyled = styled.form`
+  width: 100%;
+  max-width: 350px;
+`

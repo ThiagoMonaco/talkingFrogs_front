@@ -1,38 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { ErrorMessageStyled, InputFieldStyled, InputLabelStyled, InputStyled } from '@components/Input/styles'
+import React from 'react'
+import { ErrorMessageStyled, InputLabelStyled, InputStyled } from '@components/Input/styles'
+import { Field } from "formik";
 
 
 interface InputProps {
 	id: string
 	name: string
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-	value: string
 	label: string
-	errorMessage?: string
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+	validate?: (value: any) => undefined | string | Promise<any>
 }
 
-export default function Input({id, name, onChange, value, label, errorMessage = '', onBlur}:InputProps) {
+export default function Input({id, name, onChange, label, onBlur, validate}:InputProps) {
+	const handleChange = (field, form, meta, event) => {
+		field.onChange(event)
+		onChange && onChange(event)
+		if(meta.error) {
+			form.validateField(field.name)
+		}
+	}
 
-	const [onError, setOnError] = useState(false)
-
-	useEffect(() => {
-		console.log(errorMessage)
-		setOnError(errorMessage !== '')
-	}, [errorMessage])
+	const handleBlur = (field, form, event) => {
+		field.onBlur(event)
+		onBlur && onBlur(event)
+	}
 
 	return (
-		<InputStyled>
-			<InputLabelStyled withError={onError} htmlFor={name}> {label} </InputLabelStyled>
-			<InputFieldStyled
-				id={id}
-				name={name}
-				onChange={onChange}
-				onBlur={onBlur}
-				value={value}
-				withError={onError}
-			/>
-			{errorMessage && <ErrorMessageStyled> {errorMessage} </ErrorMessageStyled>}
-		</InputStyled>
+		<Field
+			id={id}
+			name={name}
+			onChange={onChange}
+			onBlur={onBlur}
+			validate={validate}>
+			{({ field, form, meta })=> {
+				return (
+					<>
+						<InputLabelStyled withError={!!meta.error} htmlFor={name}> {label} </InputLabelStyled>
+						<InputStyled withError={!!meta.error}>
+							<input
+								{...field}
+								onChange={(event) => handleChange(field, form, meta, event)}
+								onBlur={(event) => handleBlur(field, form, event)}
+							/>
+							{meta.touched && meta.error && (
+								<ErrorMessageStyled className="error">{meta.error}</ErrorMessageStyled>
+							)}
+						</InputStyled>
+					</>
+				)
+				}}
+		</Field>
+
 	)
 }
