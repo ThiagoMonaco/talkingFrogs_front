@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik'
 import Input from '@components/Input/Input.component'
 import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
+import api from '@/infra/api/api'
 
 
 interface RegisterFormData {
@@ -21,8 +22,15 @@ export default function RegisterForm () {
 		confirmPassword: '',
 	}
 
-	const onSubmit = (values: RegisterFormData) => {
+	const onSubmit = async (values: RegisterFormData) => {
 		console.log(values)
+		const res = await api.createAccount({
+			name: values.username,
+			email: values.email,
+			password: values.password,
+			passwordConfirmation: values.confirmPassword,
+		})
+		console.log(res)
 	}
 
 	const formValidateUsername = (username: string) => {
