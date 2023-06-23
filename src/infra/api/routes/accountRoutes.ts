@@ -13,7 +13,6 @@ interface CreateAccountResponse {
 }
 
 export const createAccount = async ({name, email, password, passwordConfirmation}: CreateAccountRequest): Promise<CreateAccountResponse> => {
-	console.log('createAccount')
 	const response = await httpClient.POST('/signup', {
 		name,
 		email,

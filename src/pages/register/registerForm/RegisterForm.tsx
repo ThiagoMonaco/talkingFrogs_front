@@ -5,6 +5,7 @@ import Input from '@components/Input/Input.component'
 import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
 import api from '@/infra/api/api'
+import { MainButtonStyled } from '@components/MainButton/styles'
 
 
 interface RegisterFormData {
@@ -23,14 +24,14 @@ export default function RegisterForm () {
 	}
 
 	const onSubmit = async (values: RegisterFormData) => {
-		console.log(values)
-		const res = await api.createAccount({
+		const response = await api.createAccount({
 			name: values.username,
 			email: values.email,
 			password: values.password,
 			passwordConfirmation: values.confirmPassword,
 		})
-		console.log(res)
+
+		console.log(response)
 	}
 
 	const formValidateUsername = (username: string) => {
@@ -98,7 +99,7 @@ export default function RegisterForm () {
 					name={'confirmPassword'}
 					label={'Password confirmation'}
 				/>
-				<button type={'submit'}> Submit </button>
+				<MainButtonStyled id={'register-submit'} type={'submit'}> Submit </MainButtonStyled>
 			</Form>
 		</Formik>
 	)
