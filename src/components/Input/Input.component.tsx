@@ -10,9 +10,10 @@ interface InputProps {
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	validate?: (value: any) => undefined | string | Promise<any>
+	validateOnBlur?: boolean
 }
 
-export default function Input({id, name, onChange, label, onBlur, validate}:InputProps) {
+export default function Input({id, name, onChange, label, onBlur, validate, validateOnBlur}:InputProps) {
 	const handleChange = (field, form, meta, event) => {
 		field.onChange(event)
 		onChange && onChange(event)
@@ -24,6 +25,9 @@ export default function Input({id, name, onChange, label, onBlur, validate}:Inpu
 	const handleBlur = (field, form, event) => {
 		field.onBlur(event)
 		onBlur && onBlur(event)
+		if(validateOnBlur) {
+			form.validateField(field.name)
+		}
 	}
 
 	return (
@@ -35,7 +39,7 @@ export default function Input({id, name, onChange, label, onBlur, validate}:Inpu
 			validate={validate}>
 			{({ field, form, meta })=> {
 				return (
-					<>
+					<div>
 						<InputLabelStyled withError={!!meta.error} htmlFor={name}> {label} </InputLabelStyled>
 						<InputStyled withError={!!meta.error}>
 							<input
@@ -47,7 +51,7 @@ export default function Input({id, name, onChange, label, onBlur, validate}:Inpu
 								<ErrorMessageStyled className="error">{meta.error}</ErrorMessageStyled>
 							)}
 						</InputStyled>
-					</>
+					</div>
 				)
 				}}
 		</Field>

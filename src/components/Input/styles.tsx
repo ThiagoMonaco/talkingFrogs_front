@@ -21,9 +21,9 @@ export const InputStyled = styled.div<InputFieldProps>`
   > input {
     width: 100%;
     font-size: ${fontSize.large}rem;
-    border: 1.5px solid ${({ withError }) => withError ? colors.error : colors.black};
-    border-right: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
-    border-bottom: 3px solid ${({ withError }) => withError ? colors.error : colors.black};
+    border: 1.5px solid ${({ withError, theme }) => withError ? theme.colors.error : theme.colors.black};
+    border-right: 3px solid ${({ withError, theme }) => withError ? theme.colors.error : theme.colors.black};
+    border-bottom: 3px solid ${({ withError, theme }) => withError ? theme.colors.error : theme.colors.black};
     border-radius: 0.5rem;
     padding: 0.5rem;
     outline: none;

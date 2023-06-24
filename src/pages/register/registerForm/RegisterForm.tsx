@@ -6,6 +6,7 @@ import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
 import api from '@/infra/api/api'
 import { MainButtonStyled } from '@components/MainButton/styles'
+import { RegisterFormStyled } from '@/pages/register/registerForm/styles'
 
 
 interface RegisterFormData {
@@ -70,36 +71,42 @@ export default function RegisterForm () {
 			onSubmit={onSubmit}
 			initialValues={initialValues}
 			validateOnChange={false}
-			validateOnBlur={true}
+			validateOnBlur={false}
 		>
 			<Form>
-				<Input
-					id={'username'}
-					name={'username'}
-					label={'Username'}
-					validate={formValidateUsername}
-				/>
+				<RegisterFormStyled>
+					<Input
+						id={'username'}
+						name={'username'}
+						label={'Username'}
+						validate={formValidateUsername}
+						validateOnBlur
+					/>
 
-				<Input
-					id={'email'}
-					name={'email'}
-					label={'Email'}
-					validate={formValidateEmail}
-				/>
+					<Input
+						id={'email'}
+						name={'email'}
+						label={'Email'}
+						validate={formValidateEmail}
+						validateOnBlur
+					/>
 
-				<Input
-					id={'password'}
-					name={'password'}
-					label={'Password'}
-					validate={formValidatePassword}
-				/>
+					<Input
+						id={'password'}
+						name={'password'}
+						label={'Password'}
+						validate={formValidatePassword}
+						validateOnBlur
+					/>
 
-				<Input
-					id={'confirmPassword'}
-					name={'confirmPassword'}
-					label={'Password confirmation'}
-				/>
-				<MainButtonStyled id={'register-submit'} type={'submit'}> Submit </MainButtonStyled>
+					<Input
+						id={'confirmPassword'}
+						name={'confirmPassword'}
+						label={'Password confirmation'}
+						validateOnBlur
+					/>
+					<MainButtonStyled id={'register-submit'} type={'submit'}> Submit </MainButtonStyled>
+				</RegisterFormStyled>
 			</Form>
 		</Formik>
 	)

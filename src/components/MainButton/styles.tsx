@@ -13,8 +13,8 @@ export const MainButtonStyled = styled.button<MainButtonStyledProps>`
   cursor: pointer;
   padding: 14px 38px;
   border-radius: 8px;
-  border-top: 1px solid ${colors.black};
-  border-right: 2px solid ${colors.black};
-  border-bottom: 2px solid ${colors.black};
-  border-left: 1px solid ${colors.black};
+  border-top: 1px solid ${props => props.theme.colors.black};
+  border-right: 2px solid ${props => props.theme.colors.black};
+  border-bottom: 2px solid ${props => props.theme.colors.black};
+  border-left: 1px solid ${props => props.theme.colors.black};
 `

@@ -1,6 +1,5 @@
 export default {
 	POST: async (endpoint: string, body: any):Promise<any> => {
-		console.log(process.env.API_URL)
 		const response = await fetch(process.env.API_URL + endpoint, {
 			method: 'POST',
 			body: JSON.stringify(body),
