@@ -39,7 +39,7 @@ export default function Input({id, name, onChange, label, onBlur, validate, vali
 			validate={validate}>
 			{({ field, form, meta })=> {
 				return (
-					<div>
+					<>
 						<InputLabelStyled withError={!!meta.error} htmlFor={name}> {label} </InputLabelStyled>
 						<InputStyled withError={!!meta.error}>
 							<input
@@ -51,7 +51,7 @@ export default function Input({id, name, onChange, label, onBlur, validate, vali
 								<ErrorMessageStyled className="error">{meta.error}</ErrorMessageStyled>
 							)}
 						</InputStyled>
-					</div>
+					</>
 				)
 				}}
 		</Field>

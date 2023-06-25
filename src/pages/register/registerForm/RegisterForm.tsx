@@ -1,12 +1,12 @@
 'use client'
 
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import Input from '@components/Input/Input.component'
 import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
 import api from '@/infra/api/api'
 import { MainButtonStyled } from '@components/MainButton/styles'
-import { RegisterFormStyled } from '@/pages/register/registerForm/styles'
+import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/register/registerForm/styles'
 
 
 interface RegisterFormData {
@@ -66,6 +66,22 @@ export default function RegisterForm () {
 		return ''
 	}
 
+	const formValidateConfirmPassword = (confirmPassword: string, originalPassword: string) => {
+		if (!validateLength(confirmPassword)) {
+			return 'Password confirmation required'
+		}
+
+		if (!validatePassword(confirmPassword)) {
+			return 'Password must contain at least 8 characters, 1 uppercase, 1 lowercase and 1 number'
+		}
+
+		if (confirmPassword !== originalPassword) {
+			return 'Passwords do not match'
+		}
+
+		return ''
+	}
+
 	return (
 		<Formik
 			onSubmit={onSubmit}
@@ -73,41 +89,52 @@ export default function RegisterForm () {
 			validateOnChange={false}
 			validateOnBlur={false}
 		>
+			{(props: FormikProps<RegisterFormData>) =>(
 			<Form>
 				<RegisterFormStyled>
-					<Input
-						id={'username'}
-						name={'username'}
-						label={'Username'}
-						validate={formValidateUsername}
-						validateOnBlur
-					/>
+					<InputFormContainerStyled>
+						<Input
+							id={'username'}
+							name={'username'}
+							label={'Username'}
+							validate={formValidateUsername}
+							validateOnBlur
+						/>
+					</InputFormContainerStyled>
 
-					<Input
-						id={'email'}
-						name={'email'}
-						label={'Email'}
-						validate={formValidateEmail}
-						validateOnBlur
-					/>
+					<InputFormContainerStyled>
+						<Input
+							id={'email'}
+							name={'email'}
+							label={'Email'}
+							validate={formValidateEmail}
+							validateOnBlur
+						/>
+					</InputFormContainerStyled>
 
-					<Input
-						id={'password'}
-						name={'password'}
-						label={'Password'}
-						validate={formValidatePassword}
-						validateOnBlur
-					/>
+					<InputFormContainerStyled>
+						<Input
+							id={'password'}
+							name={'password'}
+							label={'Password'}
+							validate={formValidatePassword}
+							validateOnBlur
+						/>
+					</InputFormContainerStyled>
 
-					<Input
-						id={'confirmPassword'}
-						name={'confirmPassword'}
-						label={'Password confirmation'}
-						validateOnBlur
-					/>
+					<InputFormContainerStyled>
+						<Input
+							id={'confirmPassword'}
+							name={'confirmPassword'}
+							label={'Password confirmation'}
+							validate={(value) => formValidateConfirmPassword(value, props.values.password)}
+							validateOnBlur
+						/>
+					</InputFormContainerStyled>
 					<MainButtonStyled id={'register-submit'} type={'submit'}> Submit </MainButtonStyled>
 				</RegisterFormStyled>
 			</Form>
+			)}
 		</Formik>
 	)
 }
