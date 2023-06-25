@@ -4,7 +4,7 @@ export default async function Home() {
   return (
       <div>
         <p>Home</p>
-        <Link href={'/register'}> Cadastro</Link>
+        <Link href={'/auth/register'}> Cadastro</Link>
       </div>
   )
 }

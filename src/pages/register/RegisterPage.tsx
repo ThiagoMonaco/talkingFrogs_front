@@ -11,20 +11,12 @@ import { UnderlinedButton } from '@/components'
 export default function RegisterPage() {
 
     return (
-        <>
-            <FullScreenBanner
-                image={registerFrog.src}
-                alt={'Frog'}
-                color={getTheme().register.bannerBackground}
-                side={'right'}>
-                <RegisterContainerStyled>
-                    <RegisterTitleStyled> Register </RegisterTitleStyled>
-                    <RegisterForm />
-                    <UnderlinedButton color={getTheme().colors.black}>
-                        Already have an account? Login
-                    </UnderlinedButton>
-                </RegisterContainerStyled>
-            </FullScreenBanner>
-        </>
+        <RegisterContainerStyled>
+            <RegisterTitleStyled> Register </RegisterTitleStyled>
+            <RegisterForm />
+            <UnderlinedButton color={getTheme().colors.black}>
+                Already have an account? Login
+            </UnderlinedButton>
+        </RegisterContainerStyled>
     )
 }
