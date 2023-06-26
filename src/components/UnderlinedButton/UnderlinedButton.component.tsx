@@ -4,11 +4,12 @@ import { UnderlinedButtonStyled } from '@components/UnderlinedButton/styles'
 interface UnderlinedButtonComponentProps {
     children: ReactNode
     color?: string
+    onClick?: () => void
 }
 
-export const UnderlinedButton: FC<UnderlinedButtonComponentProps> = ({ children, color, ...rest }) => {
+export const UnderlinedButton: FC<UnderlinedButtonComponentProps> = ({ children, color, onClick, ...rest }) => {
     return (
-        <UnderlinedButtonStyled color={color} {...rest}>
+        <UnderlinedButtonStyled onClick={onClick} color={color} {...rest}>
             {children}
         </UnderlinedButtonStyled>
     )

@@ -2,19 +2,23 @@
 
 import React from 'react'
 import { RegisterContainerStyled, RegisterFormStyled, RegisterTitleStyled } from './styles'
-import FullScreenBanner from '@components/FullScreenBanner/FullScreenBanner.component'
-import { registerFrog } from '@images/index'
-import RegisterForm from '@/pages/register/registerForm/RegisterForm'
+import RegisterForm from '@/pages/Register/RegisterForm/RegisterForm'
 import { getTheme } from '@/themes'
 import { UnderlinedButton } from '@/components'
+import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
+    const router = useRouter()
+
+    const redirectToLogin = async () => {
+        await router.push('/auth/login')
+    }
 
     return (
         <RegisterContainerStyled>
             <RegisterTitleStyled> Register </RegisterTitleStyled>
-            <RegisterForm />
-            <UnderlinedButton color={getTheme().colors.black}>
+            <RegisterForm />`
+            <UnderlinedButton onClick={redirectToLogin} color={getTheme().colors.black}>
                 Already have an account? Login
             </UnderlinedButton>
         </RegisterContainerStyled>

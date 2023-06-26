@@ -5,8 +5,8 @@ import Input from '@components/Input/Input.component'
 import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
 import api from '@/infra/api/api'
-import { MainButtonStyled } from '@components/MainButton/styles'
-import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/register/registerForm/styles'
+import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/Register/RegisterForm/styles'
+import { MainButton } from '@/components'
 
 
 interface RegisterFormData {
@@ -131,7 +131,7 @@ export default function RegisterForm () {
 							validateOnBlur
 						/>
 					</InputFormContainerStyled>
-					<MainButtonStyled id={'register-submit'} type={'submit'}> Submit </MainButtonStyled>
+					<MainButton id={'Register-submit'} type={'submit'}> Submit </MainButton>
 				</RegisterFormStyled>
 			</Form>
 			)}
