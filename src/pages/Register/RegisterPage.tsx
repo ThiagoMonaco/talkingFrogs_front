@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { RegisterContainerStyled, RegisterFormStyled, RegisterTitleStyled } from './styles'
+import { RegisterContainerStyled, RegisterTitleStyled } from './styles'
 import RegisterForm from '@/pages/Register/RegisterForm/RegisterForm'
 import { getTheme } from '@/themes'
 import { UnderlinedButton } from '@/components'

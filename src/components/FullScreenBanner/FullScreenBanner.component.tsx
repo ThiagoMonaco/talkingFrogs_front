@@ -4,7 +4,7 @@ import {
     FullScreenBannerContentStyled,
     FullScreenBannerImageStyled,
     FullScreenBannerStyled
-} from '@/components/FullScreenBanner/styles'
+} from '@components/FullScreenBanner/styles'
 import React from 'react'
 import Image from 'next/image'
 
