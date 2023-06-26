@@ -34,7 +34,7 @@ export const InputStyled = styled.div<InputFieldProps>`
 export const InputLabelStyled = styled.label<InputLabelProps>`
   font-size: ${fontSize.medium}rem;
   z-index: 2;
-  color: ${({ withError }) => withError ? colors.error : colors.black};
+  color: ${({ withError, theme }) => withError ? theme.colors.error : theme.colors.black};
 `
 
 
@@ -52,8 +52,8 @@ const topToBottomKeyframe = keyframes`
 `
 
 export const ErrorMessageStyled = styled.span`
-  color: ${colors.error};
-  font-size: ${fontSize.xsmall}rem;
+  color: ${({ theme }) => theme.colors.error};
+  font-size: ${({ theme }) => theme.fontSize.small};
   animation: ${topToBottomKeyframe} 0.5s ease;
   z-index: 1;
 `

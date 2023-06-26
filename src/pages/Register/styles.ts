@@ -13,7 +13,7 @@ export const RegisterContainerStyled = styled.div`
 `
 
 export const RegisterTitleStyled = styled.div`
-  font-size: ${fontSize.xlarge}rem;
+  font-size: ${({theme}) => theme.fontSize.xlarge};
   font-weight: 600;
 `
 

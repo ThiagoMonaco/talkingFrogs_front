@@ -1,15 +1,13 @@
 import styled from 'styled-components'
-import { colors } from '@/helpers/ui/colors'
-import { fontSize } from '@/helpers/ui/fonts'
 
 interface MainButtonStyledProps {
 
 }
 
 export const MainButtonStyled = styled.button<MainButtonStyledProps>`
-  background: ${colors.white};
-  font-size: ${fontSize.medium}rem;
-  color: ${colors.darkGreen};
+  background: ${props => props.theme.colors.white};
+  font-size: ${props => props.theme.fontSize.medium};
+  color: ${props => props.theme.colors.darkGreen};
   cursor: pointer;
   padding: 14px 38px;
   border-radius: 8px;
