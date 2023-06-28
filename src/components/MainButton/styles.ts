@@ -15,4 +15,7 @@ export const MainButtonStyled = styled.button<MainButtonStyledProps>`
   border-right: 2px solid ${props => props.theme.colors.black};
   border-bottom: 2px solid ${props => props.theme.colors.black};
   border-left: 1px solid ${props => props.theme.colors.black};
+  :disabled {
+    background: ${props => props.theme.colors.black};
+  }
 `

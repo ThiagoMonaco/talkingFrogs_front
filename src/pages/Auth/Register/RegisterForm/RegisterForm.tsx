@@ -130,7 +130,7 @@ export default function RegisterForm () {
 							validateOnBlur
 						/>
 					</InputFormContainerStyled>
-					<MainButton id={'rSegisterSubmit'} type={'submit'}> Submit </MainButton>
+					<MainButton id={'registerSubmit'} type={'submit'}> Submit </MainButton>
 				</RegisterFormStyled>
 			</Form>
 			)}

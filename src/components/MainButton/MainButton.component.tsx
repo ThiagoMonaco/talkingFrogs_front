@@ -6,12 +6,17 @@ interface MainButtonProps {
     id: string
     onClick?: () => void
     type?: 'button' | 'submit' | 'reset'
+    disabled?: boolean
 }
 
-export const MainButton: FC<MainButtonProps> = ({ children, id, onClick, type, ...props }) => {
+export const MainButton: FC<MainButtonProps> = ({ children, disabled = false,id, onClick, type, ...props }) => {
+
+    console.log(disabled)
+
     return (
-        <MainButtonStyled type={type} onClick={onClick} id={id} {...props} >
+        <MainButtonStyled disabled={disabled} type={type} onClick={onClick} id={id} {...props} >
             {children}
+            {disabled && <div className={'loader'}></div>}
         </MainButtonStyled>
     )
 }

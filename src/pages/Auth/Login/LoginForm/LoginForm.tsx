@@ -48,13 +48,19 @@ export const LoginForm = () => {
         return ''
     }
 
+    const hasError = (errors) => {
+         return Object.keys(errors).some((key) => errors[key] !== '')
+    }
+
     return (
         <Formik
             onSubmit={onSubmit}
             initialValues={initialValues}
             validateOnChange={false}
             validateOnBlur={false}
+            isInitialValid={true}
         >
+            {(props: FormikProps<LoginFormData>) => (
             <Form>
                 <LoginFormStyled>
                     <InputFormContainerStyled>
@@ -76,9 +82,10 @@ export const LoginForm = () => {
                             validateOnBlur
                         />
                     </InputFormContainerStyled>
-                    <MainButton id={'loginSubmit'} type={'submit'}> Submit </MainButton>
+                    <MainButton disabled={hasError(props.errors)} id={'loginSubmit'} type={'submit'}> Submit </MainButton>
                 </LoginFormStyled>
             </Form>
+            )}
         </Formik>
     )
 
