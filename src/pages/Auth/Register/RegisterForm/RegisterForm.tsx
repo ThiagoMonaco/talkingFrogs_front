@@ -5,7 +5,7 @@ import Input from '@components/Input/Input.component'
 import React from 'react'
 import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
 import api from '@/infra/api/api'
-import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/Register/RegisterForm/styles'
+import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/Auth/Register/RegisterForm/styles'
 import { MainButton } from '@/components'
 
 

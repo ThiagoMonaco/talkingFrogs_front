@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react'
-import { RegisterContainerStyled, RegisterTitleStyled } from './styles'
-import RegisterForm from '@/pages/Register/RegisterForm/RegisterForm'
+import { AuthContainerStyled, AuthTitleStyled } from '../styles'
+import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm'
 import { getTheme } from '@/themes'
 import { UnderlinedButton } from '@/components'
 import { useRouter } from 'next/navigation'
@@ -15,12 +15,12 @@ export default function RegisterPage() {
     }
 
     return (
-        <RegisterContainerStyled>
-            <RegisterTitleStyled> Register </RegisterTitleStyled>
-            <RegisterForm />`
+        <AuthContainerStyled>
+            <AuthTitleStyled> Register </AuthTitleStyled>
+            <RegisterForm />
             <UnderlinedButton onClick={redirectToLogin} color={getTheme().colors.black}>
                 Already have an account? Login
             </UnderlinedButton>
-        </RegisterContainerStyled>
+        </AuthContainerStyled>
     )
 }

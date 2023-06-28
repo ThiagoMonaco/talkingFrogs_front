@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { fontSize } from '@/helpers/ui/fonts'
 
-export const RegisterContainerStyled = styled.div`
+export const AuthContainerStyled = styled.div`
   width: 100%;
   max-height: 100vh;
   height: 100%;
@@ -12,12 +12,7 @@ export const RegisterContainerStyled = styled.div`
   gap: 25px;
 `
 
-export const RegisterTitleStyled = styled.div`
+export const AuthTitleStyled = styled.div`
   font-size: ${({theme}) => theme.fontSize.xlarge};
   font-weight: 600;
-`
-
-export const RegisterFormStyled = styled.form`
-  width: 100%;
-  max-width: 350px;
 `
