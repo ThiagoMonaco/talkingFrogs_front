@@ -1,9 +1,8 @@
 import { Form, Formik, FormikProps } from 'formik'
-import Input from '@components/Input/Input.component'
 import { InputFormContainerStyled, LoginFormStyled } from './styles'
 import React from 'react'
 import { validateEmailPattern, validateLength } from '@/helpers/validations'
-import { MainButton } from '@/components'
+import { MainButton, Input } from '@/components'
 import api from '@/infra/api/api'
 
 

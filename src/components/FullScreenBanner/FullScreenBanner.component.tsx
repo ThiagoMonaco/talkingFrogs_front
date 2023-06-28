@@ -5,7 +5,7 @@ import {
     FullScreenBannerImageStyled,
     FullScreenBannerStyled
 } from '@components/FullScreenBanner/styles'
-import React from 'react'
+import React, { FC } from 'react'
 import Image from 'next/image'
 
 interface FullScreenBannerProps {
@@ -16,7 +16,7 @@ interface FullScreenBannerProps {
     children: React.ReactNode
 }
 
-export default function FullScreenBanner({ children, side, color, image, alt} :FullScreenBannerProps) {
+export const FullScreenBanner: FC<FullScreenBannerProps> = ({ children, side, color, image, alt}) => {
     return (
         <FullScreenBannerStyled color={color} side={side}>
             <FullScreenBannerImageStyled>

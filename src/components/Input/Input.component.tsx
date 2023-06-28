@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ErrorMessageStyled, InputLabelStyled, InputStyled } from '@components/Input/styles'
 import { Field } from 'formik'
 
@@ -13,7 +13,7 @@ interface InputProps {
 	validateOnBlur?: boolean
 }
 
-export default function Input({id, name, onChange, label, onBlur, validate, validateOnBlur}:InputProps) {
+export const Input :FC<InputProps> = ({id, name, onChange, label, onBlur, validate, validateOnBlur}) => {
 	const handleChange = (field, form, meta, event) => {
 		field.onChange(event)
 		onChange && onChange(event)
