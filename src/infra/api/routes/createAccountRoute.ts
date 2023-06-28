@@ -9,7 +9,6 @@ interface CreateAccountRequest {
 
 interface CreateAccountResponse {
 	accessToken: string
-
 }
 
 export const createAccount = async ({name, email, password, passwordConfirmation}: CreateAccountRequest): Promise<CreateAccountResponse> => {
@@ -20,6 +19,5 @@ export const createAccount = async ({name, email, password, passwordConfirmation
 		passwordConfirmation
 	})
 
-	console.log(response)
 	return response
 }

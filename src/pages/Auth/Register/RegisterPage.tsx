@@ -18,7 +18,7 @@ export default function RegisterPage() {
         <AuthContainerStyled>
             <AuthTitleStyled> Register </AuthTitleStyled>
             <RegisterForm />
-            <UnderlinedButton onClick={redirectToLogin} color={getTheme().colors.black}>
+            <UnderlinedButton id={'alreadyHaveAccountBtn'} onClick={redirectToLogin} color={getTheme().colors.black}>
                 Already have an account? Login
             </UnderlinedButton>
         </AuthContainerStyled>

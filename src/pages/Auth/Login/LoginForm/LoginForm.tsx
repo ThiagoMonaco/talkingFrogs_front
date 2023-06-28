@@ -1,9 +1,10 @@
 import { Form, Formik, FormikProps } from 'formik'
 import Input from '@components/Input/Input.component'
-import { InputFormContainerStyled } from '@/pages/Auth/Register/RegisterForm/styles'
+import { InputFormContainerStyled, LoginFormStyled } from './styles'
 import React from 'react'
 import { validateEmailPattern, validateLength } from '@/helpers/validations'
 import { MainButton } from '@/components'
+import api from '@/infra/api/api'
 
 
 interface LoginFormData {
@@ -17,8 +18,15 @@ export const LoginForm = () => {
         password: ''
     }
 
-    const onSubmit = (values) => {
+    const onSubmit = async(values) => {
         console.log(values)
+
+        const res = await api.login({
+            email: values.email,
+            password: values.password
+        })
+
+        console.log(res)
     }
 
     const formValidateEmail = (email: string) => {
@@ -48,8 +56,8 @@ export const LoginForm = () => {
             validateOnChange={false}
             validateOnBlur={false}
         >
-            {(props: FormikProps<LoginFormData>) =>(
-                <Form>
+            <Form>
+                <LoginFormStyled>
                     <InputFormContainerStyled>
                         <Input
                             id={'email'}
@@ -69,9 +77,9 @@ export const LoginForm = () => {
                             validateOnBlur
                         />
                     </InputFormContainerStyled>
-                    <MainButton id={'login-submit'} type={'submit'}> Submit </MainButton>
-                </Form>
-            )}
+                    <MainButton id={'loginSubmit'} type={'submit'}> Submit </MainButton>
+                </LoginFormStyled>
+            </Form>
         </Formik>
     )
 
