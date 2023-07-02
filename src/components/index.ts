@@ -1,6 +1,5 @@
-import { FullScreenBanner } from "@components/FullScreenBanner/FullScreenBanner.component"
-import { Input } from "@components/Input/Input.component"
-import { MainButton} from '@components/MainButton/MainButton.component'
-import { UnderlinedButton } from '@components/UnderlinedButton/UnderlinedButton.component'
-
-export { FullScreenBanner, Input , MainButton, UnderlinedButton }
+export * from "@components/FullScreenBanner/FullScreenBanner.component"
+export * from "@components/Input/Input.component"
+export * from '@components/MainButton/MainButton.component'
+export * from '@components/UnderlinedButton/UnderlinedButton.component'
+export * from '@components/Loading/Loading.component'

@@ -1,8 +1,14 @@
 'use client'
 
 import { Form, Formik, FormikProps } from 'formik'
-import React from 'react'
-import { validateEmailPattern, validateLength, validatePassword, validateUsername } from '@/helpers/validations'
+import React, { useState } from 'react'
+import {
+	formHasError,
+	validateEmailPattern,
+	validateLength,
+	validatePassword,
+	validateUsername
+} from '@/helpers/validations'
 import api from '@/infra/api/api'
 import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/Auth/Register/RegisterForm/styles'
 import { MainButton, Input } from '@/components'
@@ -16,6 +22,7 @@ interface RegisterFormData {
 }
 
 export default function RegisterForm () {
+	const [isLoading, setIsLoading] = useState(false)
 	const initialValues: RegisterFormData = {
 		email: '',
 		username: '',
@@ -24,13 +31,14 @@ export default function RegisterForm () {
 	}
 
 	const onSubmit = async (values: RegisterFormData) => {
+		setIsLoading(true)
 		const response = await api.createAccount({
 			name: values.username,
 			email: values.email,
 			password: values.password,
 			passwordConfirmation: values.confirmPassword,
 		})
-
+		setIsLoading(false)
 		console.log(response)
 	}
 
@@ -130,7 +138,13 @@ export default function RegisterForm () {
 							validateOnBlur
 						/>
 					</InputFormContainerStyled>
-					<MainButton id={'registerSubmit'} type={'submit'}> Submit </MainButton>
+					<MainButton
+						isLoading={isLoading}
+						disabled={formHasError(props.errors)}
+						id={'registerSubmit'}
+						type={'submit'}>
+						Submit
+					</MainButton>
 				</RegisterFormStyled>
 			</Form>
 			)}

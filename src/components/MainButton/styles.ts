@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface MainButtonStyledProps {
-
+    isLoading: boolean
 }
 
 export const MainButtonStyled = styled.button<MainButtonStyledProps>`
@@ -15,7 +15,18 @@ export const MainButtonStyled = styled.button<MainButtonStyledProps>`
   border-right: 2px solid ${props => props.theme.colors.black};
   border-bottom: 2px solid ${props => props.theme.colors.black};
   border-left: 1px solid ${props => props.theme.colors.black};
+  position: relative;
+  
   :disabled {
-    background: ${props => props.theme.colors.black};
+    background: ${props => props.isLoading ? props.theme.colors.white : props.theme.colors.black};
   }
+`
+
+interface ButtonChildrenStyledProps {
+    isLoading: boolean
+}
+
+export const ButtonChildrenStyled = styled.div<ButtonChildrenStyledProps>`
+  opacity: ${props => props.isLoading ? 0 : 1};
+  height: ${props => props.isLoading ? 0 : 'auto'};
 `

@@ -1,7 +1,7 @@
 import { Form, Formik, FormikProps } from 'formik'
 import { InputFormContainerStyled, LoginFormStyled } from './styles'
-import React from 'react'
-import { validateEmailPattern, validateLength } from '@/helpers/validations'
+import React, { useState } from 'react'
+import { formHasError, validateEmailPattern, validateLength } from '@/helpers/validations'
 import { MainButton, Input } from '@/components'
 import api from '@/infra/api/api'
 
@@ -12,20 +12,19 @@ interface LoginFormData {
 }
 
 export const LoginForm = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const initialValues: LoginFormData = {
         email: '',
         password: ''
     }
 
     const onSubmit = async(values) => {
-        console.log(values)
-
+        setIsLoading(true)
         const res = await api.login({
             email: values.email,
             password: values.password
         })
-
-        console.log(res)
+        setIsLoading(false)
     }
 
     const formValidateEmail = (email: string) => {
@@ -46,10 +45,6 @@ export const LoginForm = () => {
         }
 
         return ''
-    }
-
-    const hasError = (errors) => {
-         return Object.keys(errors).some((key) => errors[key] !== '')
     }
 
     return (
@@ -82,7 +77,13 @@ export const LoginForm = () => {
                             validateOnBlur
                         />
                     </InputFormContainerStyled>
-                    <MainButton disabled={hasError(props.errors)} id={'loginSubmit'} type={'submit'}> Submit </MainButton>
+                    <MainButton
+                        isLoading={isLoading}
+                        disabled={formHasError(props.errors)}
+                        id={'loginSubmit'}
+                        type={'submit'}>
+                        Submit
+                    </MainButton>
                 </LoginFormStyled>
             </Form>
             )}
