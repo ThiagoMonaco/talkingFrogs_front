@@ -5,7 +5,8 @@ export const RegisterFormStyled = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 15px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 `
 
 export const InputFormContainerStyled = styled.div`
