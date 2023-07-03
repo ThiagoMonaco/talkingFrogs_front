@@ -1,5 +1,20 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { fontSize } from '@/helpers/ui/fonts'
+
+const slideRight = keyframes` 
+	from { 
+		transform: translateX(-100px);
+		opacity: 0;
+		z-index: -1;
+	}
+	
+	to {
+		transform: translateX(0%);
+		opacity: 1;
+		z-index: 1;
+	}
+`
+
 
 export const AuthContainerStyled = styled.div`
   width: 100%;
@@ -9,6 +24,7 @@ export const AuthContainerStyled = styled.div`
   align-items: center;
   margin-top: 175px;
   gap: 25px;
+  animation: ${slideRight} 0.5s ease-in-out;
   
   form {
     width: 80%;
