@@ -9,13 +9,17 @@ import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
     const router = useRouter()
+    const [isUnmounting, setIsUnmounting] = React.useState(false)
 
     const redirectToLogin = async () => {
-        await router.push('/auth/login')
+        setIsUnmounting(true)
+        setTimeout(() => {
+            router.push('/auth/login')
+        }, 250)
     }
 
     return (
-        <AuthContainerStyled>
+        <AuthContainerStyled isUnmounting={isUnmounting}>
             <AuthTitleStyled> Register </AuthTitleStyled>
             <RegisterForm />
             <UnderlinedButton id={'alreadyHaveAccountBtn'} onClick={redirectToLogin} color={getTheme().colors.black}>

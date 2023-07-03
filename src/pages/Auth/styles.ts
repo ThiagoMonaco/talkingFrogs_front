@@ -15,8 +15,19 @@ const slideRight = keyframes`
 	}
 `
 
+const slideLeft = keyframes`
+	to {
+		transform: translateX(+200px);
+		opacity: 0;
+		z-index: -1;
+	}
+`
 
-export const AuthContainerStyled = styled.div`
+interface AuthContainerStyledProps {
+    isUnmounting: boolean
+}
+
+export const AuthContainerStyled = styled.div<AuthContainerStyledProps>`
   width: 100%;
   max-height: 100vh;
   display: flex;
@@ -24,7 +35,7 @@ export const AuthContainerStyled = styled.div`
   align-items: center;
   margin-top: 175px;
   gap: 25px;
-  animation: ${slideRight} 0.5s ease-in-out;
+  animation: ${props => props.isUnmounting ? slideLeft : slideRight} 0.5s forwards;
   
   form {
     width: 80%;
