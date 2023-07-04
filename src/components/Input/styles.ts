@@ -53,7 +53,7 @@ const topToBottomKeyframe = keyframes`
 
 export const ErrorMessageStyled = styled.span`
   color: ${({ theme }) => theme.colors.error};
-  font-size: ${({ theme }) => theme.fontSize.small};
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
   animation: ${topToBottomKeyframe} 0.5s ease;
   z-index: 1;
 `

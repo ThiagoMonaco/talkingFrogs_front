@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components'
-import { fontSize } from '@/helpers/ui/fonts'
 
 const slideRight = keyframes` 
 	from { 
@@ -47,4 +46,21 @@ export const AuthContainerStyled = styled.div<AuthContainerStyledProps>`
 export const AuthTitleStyled = styled.div`
   font-size: ${({theme}) => theme.fontSize.xlarge};
   font-weight: 600;
+  
+  @media(max-width: 350px) {
+    font-size: ${({theme}) => theme.fontSize.large};
+  }
+`
+
+export const AuthInputFormContainerStyled = styled.div`
+  width: 100%;
+`
+
+export const AuthFormContainerStyled = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
 `

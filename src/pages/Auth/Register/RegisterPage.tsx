@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { AuthContainerStyled, AuthTitleStyled } from '../styles'
-import RegisterForm from '@/pages/Auth/Register/RegisterForm/RegisterForm'
+import RegisterForm from '@/pages/Auth/Register/RegisterForm'
 import { getTheme } from '@/themes'
 import { UnderlinedButton } from '@/components'
 import { useRouter } from 'next/navigation'

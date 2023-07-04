@@ -1,9 +1,9 @@
 import { Form, Formik, FormikProps } from 'formik'
-import { InputFormContainerStyled, LoginFormStyled } from './styles'
 import React, { useState } from 'react'
 import { formHasError, validateEmailPattern, validateLength } from '@/helpers/validations'
 import { MainButton, Input } from '@/components'
 import api from '@/infra/api/api'
+import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/Auth/styles"
 
 
 interface LoginFormData {
@@ -57,8 +57,8 @@ export const LoginForm = () => {
         >
             {(props: FormikProps<LoginFormData>) => (
             <Form>
-                <LoginFormStyled>
-                    <InputFormContainerStyled>
+                <AuthFormContainerStyled>
+                    <AuthInputFormContainerStyled>
                         <Input
                             id={'email'}
                             name={'email'}
@@ -66,9 +66,9 @@ export const LoginForm = () => {
                             validate={formValidateEmail}
                             validateOnBlur
                         />
-                    </InputFormContainerStyled>
+                    </AuthInputFormContainerStyled>
 
-                    <InputFormContainerStyled>
+                    <AuthInputFormContainerStyled>
                         <Input
                             id={'password'}
                             name={'password'}
@@ -76,7 +76,7 @@ export const LoginForm = () => {
                             validate={formPasswordValidate}
                             validateOnBlur
                         />
-                    </InputFormContainerStyled>
+                    </AuthInputFormContainerStyled>
                     <MainButton
                         isLoading={isLoading}
                         disabled={formHasError(props.errors)}
@@ -84,7 +84,7 @@ export const LoginForm = () => {
                         type={'submit'}>
                         Submit
                     </MainButton>
-                </LoginFormStyled>
+                </AuthFormContainerStyled>
             </Form>
             )}
         </Formik>

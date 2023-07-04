@@ -10,8 +10,8 @@ import {
 	validateUsername
 } from '@/helpers/validations'
 import api from '@/infra/api/api'
-import { InputFormContainerStyled, RegisterFormStyled } from '@/pages/Auth/Register/RegisterForm/styles'
 import { MainButton, Input } from '@/components'
+import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/Auth/styles"
 
 
 interface RegisterFormData {
@@ -98,8 +98,8 @@ export default function RegisterForm () {
 		>
 			{(props: FormikProps<RegisterFormData>) =>(
 			<Form>
-				<RegisterFormStyled>
-					<InputFormContainerStyled>
+				<AuthFormContainerStyled>
+					<AuthInputFormContainerStyled>
 						<Input
 							id={'username'}
 							name={'username'}
@@ -107,9 +107,9 @@ export default function RegisterForm () {
 							validate={formValidateUsername}
 							validateOnBlur
 						/>
-					</InputFormContainerStyled>
+					</AuthInputFormContainerStyled>
 
-					<InputFormContainerStyled>
+					<AuthInputFormContainerStyled>
 						<Input
 							id={'email'}
 							name={'email'}
@@ -117,9 +117,9 @@ export default function RegisterForm () {
 							validate={formValidateEmail}
 							validateOnBlur
 						/>
-					</InputFormContainerStyled>
+					</AuthInputFormContainerStyled>
 
-					<InputFormContainerStyled>
+					<AuthInputFormContainerStyled>
 						<Input
 							id={'password'}
 							name={'password'}
@@ -127,9 +127,9 @@ export default function RegisterForm () {
 							validate={formValidatePassword}
 							validateOnBlur
 						/>
-					</InputFormContainerStyled>
+					</AuthInputFormContainerStyled>
 
-					<InputFormContainerStyled>
+					<AuthInputFormContainerStyled>
 						<Input
 							id={'confirmPassword'}
 							name={'confirmPassword'}
@@ -137,7 +137,7 @@ export default function RegisterForm () {
 							validate={(value) => formValidateConfirmPassword(value, props.values.password)}
 							validateOnBlur
 						/>
-					</InputFormContainerStyled>
+					</AuthInputFormContainerStyled>
 					<MainButton
 						isLoading={isLoading}
 						disabled={formHasError(props.errors)}
@@ -145,7 +145,7 @@ export default function RegisterForm () {
 						type={'submit'}>
 						Submit
 					</MainButton>
-				</RegisterFormStyled>
+				</AuthFormContainerStyled>
 			</Form>
 			)}
 		</Formik>
