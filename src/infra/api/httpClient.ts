@@ -10,7 +10,14 @@ export default {
 			},
 		})
 
-		const data = await response.json()
+		let data
+		try {
+			data = await response.json()
+		} catch (error) {
+			data = null
+		}
+
 		return { data: data, status: response.status }
+
 	}
 }

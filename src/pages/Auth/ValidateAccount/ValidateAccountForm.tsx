@@ -4,12 +4,14 @@ import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/A
 import {Input, MainButton} from "@/components"
 import {formHasError} from "@/helpers/validations";
 import api from '@/infra/api/api'
+import { useRouter } from 'next/navigation'
 
 interface ValidateAccountFormData {
     code: string
 }
 
 export const ValidateAccountForm: FC = () => {
+    const router = useRouter()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const initialValues: ValidateAccountFormData = {
         code: ''
@@ -17,7 +19,11 @@ export const ValidateAccountForm: FC = () => {
 
     const onSubmit = async (values: ValidateAccountFormData) => {
         setIsLoading(true)
-        await api.validateEmailToken({token: values.code})
+        const response = await api.validateEmailToken({token: values.code})
+        if(response.status === 200) {
+            router.push('/')
+            return
+        }
         setIsLoading(false)
     }
 

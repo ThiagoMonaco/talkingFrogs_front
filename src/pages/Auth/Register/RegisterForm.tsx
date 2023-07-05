@@ -1,7 +1,7 @@
 'use client'
 
 import { Form, Formik, FormikProps } from 'formik'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
 	formHasError,
 	validateEmailPattern,
@@ -12,6 +12,8 @@ import {
 import api from '@/infra/api/api'
 import { MainButton, Input } from '@/components'
 import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/Auth/styles"
+import { useRouter } from 'next/navigation'
+import { UserContext } from '@/context/UserContext'
 
 
 interface RegisterFormData {
@@ -22,6 +24,8 @@ interface RegisterFormData {
 }
 
 export default function RegisterForm () {
+	const router = useRouter()
+	const { setUserData, setIsLogged } = useContext(UserContext)
 	const [isLoading, setIsLoading] = useState(false)
 	const initialValues: RegisterFormData = {
 		email: '',
@@ -38,8 +42,16 @@ export default function RegisterForm () {
 			password: values.password,
 			passwordConfirmation: values.confirmPassword,
 		})
-		setIsLoading(false)
-		console.log(response)
+
+		if(response.status === 200) {
+			setUserData({
+				email: values.email,
+				name: values.username,
+				isEmailVerified: false
+			})
+			setIsLogged(true)
+			router.push('/auth/validate-account')
+		}
 	}
 
 	const formValidateUsername = (username: string) => {
