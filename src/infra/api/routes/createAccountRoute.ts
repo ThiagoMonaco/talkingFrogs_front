@@ -1,4 +1,5 @@
 import httpClient from '@/infra/api/httpClient'
+import { HttpResponse } from '@/infra/api/httpResponse'
 
 interface CreateAccountRequest {
 	name: string
@@ -11,7 +12,7 @@ interface CreateAccountResponse {
 	accessToken: string
 }
 
-export const createAccount = async ({name, email, password, passwordConfirmation}: CreateAccountRequest): Promise<CreateAccountResponse> => {
+export const createAccount = async ({name, email, password, passwordConfirmation}: CreateAccountRequest): Promise<HttpResponse<CreateAccountResponse>> => {
 	const response = await httpClient.POST('/signup', {
 		name,
 		email,

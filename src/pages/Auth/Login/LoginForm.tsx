@@ -28,10 +28,13 @@ export const LoginForm = () => {
             email: values.email,
             password: values.password
         })
+        console.log(res)
+        const { data} = res
+        console.log(data)
         setIsLogged(true)
-        setUserData({...res, email: values.email})
+        setUserData({...data, email: values.email})
 
-        if(!res.isEmailVerified) {
+        if(!data.isEmailVerified) {
             await router.push('/auth/validate-account')
             return
         }

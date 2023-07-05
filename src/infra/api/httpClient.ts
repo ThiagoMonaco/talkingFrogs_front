@@ -10,6 +10,7 @@ export default {
 			},
 		})
 
-		return response.json()
+		const data = await response.json()
+		return { data: data, status: response.status }
 	}
 }
