@@ -1,10 +1,11 @@
 import { Form, Formik, FormikProps } from 'formik'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { formHasError, validateEmailPattern, validateLength } from '@/helpers/validations'
 import { MainButton, Input } from '@/components'
 import api from '@/infra/api/api'
 import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/Auth/styles"
-
+import { useRouter } from 'next/navigation'
+import { UserContext } from '@/context/UserContext'
 
 interface LoginFormData {
     email: string
@@ -12,7 +13,10 @@ interface LoginFormData {
 }
 
 export const LoginForm = () => {
+    const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const { setIsLogged, setUserData} = useContext(UserContext)
+
     const initialValues: LoginFormData = {
         email: '',
         password: ''
@@ -24,7 +28,15 @@ export const LoginForm = () => {
             email: values.email,
             password: values.password
         })
-        setIsLoading(false)
+        setIsLogged(true)
+        setUserData({...res, email: values.email})
+
+        if(!res.isEmailVerified) {
+            await router.push('/auth/validate-account')
+            return
+        }
+
+        await router.push('/')
     }
 
     const formValidateEmail = (email: string) => {
