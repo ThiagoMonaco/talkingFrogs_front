@@ -7,13 +7,22 @@ interface InputProps {
 	id: string
 	name: string
 	label: string
+	type?: string
 	onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	validate?: (value: any) => undefined | string | Promise<any>
 	validateOnBlur?: boolean
 }
 
-export const Input :FC<InputProps> = ({id, name, onChange, label, onBlur, validate, validateOnBlur}) => {
+export const Input :FC<InputProps> = ({
+	id,
+	name,
+	type,
+	onChange,
+	label,
+	onBlur,
+	validate,
+	validateOnBlur}) => {
 	const handleChange = (field, form, meta, event) => {
 		field.onChange(event)
 		onChange && onChange(event)
@@ -44,6 +53,7 @@ export const Input :FC<InputProps> = ({id, name, onChange, label, onBlur, valida
 						<InputStyled withError={!!meta.error}>
 							<input
 								{...field}
+								type={type}
 								onChange={(event) => handleChange(field, form, meta, event)}
 								onBlur={(event) => handleBlur(field, form, event)}
 							/>

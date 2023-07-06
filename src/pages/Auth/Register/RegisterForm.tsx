@@ -149,6 +149,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({setError}) => {
 						<Input
 							id={'password'}
 							name={'password'}
+							type={'password'}
 							label={'Password'}
 							validate={formValidatePassword}
 							validateOnBlur
@@ -159,6 +160,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({setError}) => {
 						<Input
 							id={'confirmPassword'}
 							name={'confirmPassword'}
+							type={'password'}
 							label={'Password confirmation'}
 							validate={(value) => formValidateConfirmPassword(value, props.values.password)}
 							validateOnBlur

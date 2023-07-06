@@ -103,6 +103,7 @@ export const LoginForm: FC<LoginFormProps> = ({ setError }) => {
                         <Input
                             id={'password'}
                             name={'password'}
+                            type={'password'}
                             label={'Password'}
                             validate={formPasswordValidate}
                             validateOnBlur
