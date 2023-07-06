@@ -43,7 +43,7 @@ export const AuthContainerStyled = styled.div<AuthContainerStyledProps>`
   }
 `
 
-export const AuthTitleStyled = styled.div`
+export const AuthTitleStyled = styled.h1`
   font-size: ${({theme}) => theme.fontSize.xlarge};
   font-weight: 600;
   

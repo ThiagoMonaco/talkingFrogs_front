@@ -38,6 +38,8 @@ export const FullScreenBannerContentStyled = styled.div `
   max-width: 50%;
   max-height: 100vh;
   height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 	
   @media (max-width: 768px) {
 		max-width: 100%;

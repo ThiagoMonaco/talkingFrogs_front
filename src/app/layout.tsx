@@ -24,7 +24,9 @@ export default function RootLayout({
       <UserProvider>
           <CustomTheme>
               <html lang="en">
-              <body className={poppins.className}>{children}</body>
+                  <body className={poppins.className}>
+                    {children}
+                  </body>
               </html>
           </CustomTheme>
       </UserProvider>
