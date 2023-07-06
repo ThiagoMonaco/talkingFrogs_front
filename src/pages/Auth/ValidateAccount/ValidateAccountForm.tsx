@@ -1,17 +1,23 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import {Form, Formik, FormikProps} from "formik"
 import { AuthFormContainerStyled, AuthInputFormContainerStyled } from "@/pages/Auth/styles"
 import {Input, MainButton} from "@/components"
 import {formHasError} from "@/helpers/validations";
 import api from '@/infra/api/api'
 import { useRouter } from 'next/navigation'
+import { UserContext } from '@/context/UserContext'
 
 interface ValidateAccountFormData {
     code: string
 }
 
-export const ValidateAccountForm: FC = () => {
+interface ValidateAccountFormProps {
+    setError: (error: string) => void
+}
+
+export const ValidateAccountForm: FC<ValidateAccountFormProps> = ({ setError }) => {
     const router = useRouter()
+    const { logoffUser } = useContext(UserContext)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const initialValues: ValidateAccountFormData = {
         code: ''
@@ -24,6 +30,20 @@ export const ValidateAccountForm: FC = () => {
             router.push('/')
             return
         }
+
+        if(response.status === 403) {
+            logoffUser()
+            router.push('/auth/login')
+            return
+        }
+
+        if(response.status === 400) {
+            setError(response.data.error)
+            setIsLoading(false)
+            return
+        }
+
+        setError('An error occurred on the server side. Please try again later.')
         setIsLoading(false)
     }
 

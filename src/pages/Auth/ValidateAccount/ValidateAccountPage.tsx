@@ -13,6 +13,7 @@ export const ValidateAccountPage = () => {
     const router = useRouter()
     const { isLogged, userData } = useContext(UserContext)
     const [isUnmounting, setIsUnmounting] = useState(false)
+    const [error, setError] = useState('')
 
     useEffect(() => {
         if(!isLogged) {
@@ -35,7 +36,8 @@ export const ValidateAccountPage = () => {
             <TextContainerStyled>
                 We send a verification code to <b>{userData.email}</b>
             </TextContainerStyled>
-            <ValidateAccountForm/>
+            <ValidateAccountForm setError={setError}/>
+            {error !== '' && <TextContainerStyled> {error} </TextContainerStyled>}
             <UnderlinedButton onClick={handleResendVerificationCode} id={'resend-verification-code'}>
                 Resend verification code
             </UnderlinedButton>

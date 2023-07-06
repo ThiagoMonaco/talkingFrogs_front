@@ -12,6 +12,7 @@ interface UserContextProps {
     setIsLogged: (isLogged: boolean) => void
     userData: UserDataContextProps
     setUserData: (userData: UserDataContextProps) => void
+    logoffUser: () => void
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -21,7 +22,8 @@ export const UserContext = createContext<UserContextProps>({
         name: '',
         isEmailVerified: false
     },
-    setUserData: () => {}
+    setUserData: () => {},
+    logoffUser: () => {}
 })
 
 export const UserProvider = ({ children }) => {
@@ -31,8 +33,18 @@ export const UserProvider = ({ children }) => {
         isEmailVerified: false
     })
 
+    const logoffUser = () => {
+        setUserData({
+            name: '',
+            isEmailVerified: false,
+            email: ''
+        })
+
+        setIsLogged(false)
+    }
+
     return (
-        <UserContext.Provider value={{ isLogged, setIsLogged, userData, setUserData }}>
+        <UserContext.Provider value={{ logoffUser, isLogged, setIsLogged, userData, setUserData }}>
             {children}
         </UserContext.Provider>
     )
