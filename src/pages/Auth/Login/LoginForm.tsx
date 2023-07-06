@@ -1,5 +1,5 @@
 import { Form, Formik, FormikProps } from 'formik'
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { formHasError, validateEmailPattern, validateLength } from '@/helpers/validations'
 import { MainButton, Input } from '@/components'
 import api from '@/infra/api/api'
@@ -12,7 +12,11 @@ interface LoginFormData {
     password: string
 }
 
-export const LoginForm = () => {
+interface LoginFormProps {
+    setError: (error: string) => void
+}
+
+export const LoginForm: FC<LoginFormProps> = ({ setError }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const { setIsLogged, setUserData} = useContext(UserContext)
@@ -24,13 +28,25 @@ export const LoginForm = () => {
 
     const onSubmit = async(values) => {
         setIsLoading(true)
+        setError('')
         const res = await api.login({
             email: values.email,
             password: values.password
         })
-        console.log(res)
-        const { data} = res
-        console.log(data)
+
+        const { data, status} = res
+        if(status === 401) {
+            setIsLoading(false)
+            setError('Invalid email or password')
+            return
+        }
+
+        if (status !== 200) {
+            setIsLoading(false)
+            setError('Something went wrong on the server side, please try again later.')
+            return
+        }
+
         setIsLogged(true)
         setUserData({...data, email: values.email})
 

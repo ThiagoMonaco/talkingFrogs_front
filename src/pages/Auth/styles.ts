@@ -64,3 +64,9 @@ export const AuthFormContainerStyled = styled.div`
   width: 100%;
   max-width: 400px;
 `
+
+export const AuthErrorMessageStyled = styled.p`
+  color: ${({theme}) => theme.colors.error};
+  text-align: center;
+  font-size: ${({theme}) => theme.fontSize.small};
+`
