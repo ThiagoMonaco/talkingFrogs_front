@@ -1,7 +1,7 @@
 'use client'
 
 import { Form, Formik, FormikProps } from 'formik'
-import React, { useContext, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import {
 	formHasError,
 	validateEmailPattern,
@@ -23,7 +23,11 @@ interface RegisterFormData {
 	confirmPassword: string
 }
 
-export default function RegisterForm () {
+interface RegisterFormProps {
+	setError: (error: string) => void
+}
+
+export const RegisterForm: FC<RegisterFormProps> = ({setError}) => {
 	const router = useRouter()
 	const { setUserData, setIsLogged } = useContext(UserContext)
 	const [isLoading, setIsLoading] = useState(false)
@@ -43,6 +47,12 @@ export default function RegisterForm () {
 			passwordConfirmation: values.confirmPassword,
 		})
 
+		if(response.status === 400) {
+			setError(response.data.error)
+			setIsLoading(false)
+			return
+		}
+
 		if(response.status === 200) {
 			setUserData({
 				email: values.email,
@@ -51,7 +61,11 @@ export default function RegisterForm () {
 			})
 			setIsLogged(true)
 			router.push('/auth/validate-account')
+			return
 		}
+
+		setError('Something went wrong on server side. Please try again later.')
+		setIsLoading(false)
 	}
 
 	const formValidateUsername = (username: string) => {

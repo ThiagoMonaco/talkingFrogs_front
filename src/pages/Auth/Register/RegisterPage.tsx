@@ -1,15 +1,17 @@
 'use client'
 
-import React from 'react'
-import { AuthContainerStyled, AuthTitleStyled } from '../styles'
-import RegisterForm from '@/pages/Auth/Register/RegisterForm'
+import React, { useState } from 'react'
+import { AuthContainerStyled, AuthErrorMessageStyled, AuthTitleStyled } from '../styles'
+import { RegisterForm } from '@/pages/Auth/Register/RegisterForm'
 import { getTheme } from '@/themes'
 import { UnderlinedButton } from '@/components'
 import { useRouter } from 'next/navigation'
+import { setErrorMap } from 'zod'
 
 export default function RegisterPage() {
     const router = useRouter()
-    const [isUnmounting, setIsUnmounting] = React.useState(false)
+    const [isUnmounting, setIsUnmounting] = useState(false)
+    const [error, setError] = useState('')
 
     const redirectToLogin = async () => {
         setIsUnmounting(true)
@@ -21,7 +23,8 @@ export default function RegisterPage() {
     return (
         <AuthContainerStyled isUnmounting={isUnmounting}>
             <AuthTitleStyled> Register </AuthTitleStyled>
-            <RegisterForm />
+            <RegisterForm setError={setError}/>
+            {error !== '' && <AuthErrorMessageStyled> {error} </AuthErrorMessageStyled>}
             <UnderlinedButton id={'alreadyHaveAccountBtn'} onClick={redirectToLogin} color={getTheme().colors.black}>
                 Already have an account? Login
             </UnderlinedButton>
