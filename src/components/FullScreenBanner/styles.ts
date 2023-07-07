@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 interface FullScreenBannerStyledProps {
     color: string
@@ -24,13 +24,29 @@ const slideIn = keyframes`
   }
 `
 
-export const FullScreenBannerImageStyled = styled.div`
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+`
+
+interface FullScreenBannerImageStyledProps {
+    isUnmounting: boolean
+}
+
+export const FullScreenBannerImageStyled = styled.div<FullScreenBannerImageStyledProps>`
   max-width: 50%;
   width: 50%;
   height: 100vh;
   position: relative;
   display: block;
-  animation: ${slideIn} 1s ease-in-out;
+  animation: ${props => props.isUnmounting ?
+          css`${slideOut} 1s forwards` :
+          css`${slideIn} 1s forwards`};
 
   @media (max-width: 768px) {
     display: none;
@@ -45,7 +61,17 @@ export const FullScreenBannerImageStyled = styled.div`
 
 interface FullScreenBannerContentStyledProps {
     firstRender: boolean
+    isUnmounting: boolean
 }
+
+export const slideOutRight = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+`
 
 export const FullScreenBannerContentStyled = styled.div<FullScreenBannerContentStyledProps>`
   width: 50%;
@@ -54,8 +80,12 @@ export const FullScreenBannerContentStyled = styled.div<FullScreenBannerContentS
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  
+  animation: ${props => props.isUnmounting ?
+          css`${slideOutRight} 1s forwards` :
+          ''};
 
-  > div {
+  > .animation-delay {
     opacity: ${props => props.firstRender ? '0' : '1'};
     animation-delay: ${props => props.firstRender ? '1s' : '0s'};
   }

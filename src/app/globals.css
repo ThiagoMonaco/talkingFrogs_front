@@ -10,6 +10,6 @@ body {
   padding: 0;
   margin: 0;
   max-width: 100vw;
-  /*height: 100vh;*/
   overflow-x: hidden;
+  background: #8FC88F;
 }

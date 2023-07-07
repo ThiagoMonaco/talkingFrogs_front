@@ -21,7 +21,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <AuthContainerStyled isUnmounting={isUnmounting}>
+        <AuthContainerStyled className={'animation-delay'}  isUnmounting={isUnmounting}>
             <AuthTitleStyled> Register </AuthTitleStyled>
             <RegisterForm setError={setError}/>
             {error !== '' && <AuthErrorMessageStyled> {error} </AuthErrorMessageStyled>}

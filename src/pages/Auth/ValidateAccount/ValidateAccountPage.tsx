@@ -31,7 +31,7 @@ export const ValidateAccountPage = () => {
     }
 
     return (
-        <AuthContainerStyled isUnmounting={isUnmounting}>
+        <AuthContainerStyled className={'animation-delay'}  isUnmounting={isUnmounting}>
             <AuthTitleStyled> Activate Account </AuthTitleStyled>
             <TextContainerStyled>
                 We send a verification code to <b>{userData.email}</b>

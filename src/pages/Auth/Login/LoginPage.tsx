@@ -19,7 +19,7 @@ export const LoginPage: FC = () => {
     }
 
     return (
-        <AuthContainerStyled isUnmounting={isUnmounting}>
+        <AuthContainerStyled className={'animation-delay'} isUnmounting={isUnmounting}>
             <AuthTitleStyled> Login </AuthTitleStyled>
             <LoginForm setError={setError}/>
             {error !== '' && <AuthErrorMessageStyled> {error} </AuthErrorMessageStyled>}

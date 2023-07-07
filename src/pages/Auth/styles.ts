@@ -32,7 +32,6 @@ export const AuthContainerStyled = styled.div<AuthContainerStyledProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 175px;
   gap: 25px;
   animation: ${props => props.isUnmounting ? slideLeft : slideRight} 0.5s forwards;
   
