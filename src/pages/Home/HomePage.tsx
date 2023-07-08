@@ -16,8 +16,8 @@ export const HomePage:FC = () => {
     const router = useRouter()
     const { isLogged, userData } = useContext(UserContext)
 
-    const redirectToProfile = (target) => {
-        router.push(`/user/${target}`)
+    const redirectToUserProfile = () => {
+        router.push(`/user/${userData.name}`)
     }
 
     const redirectToLogin = () => {
@@ -41,7 +41,7 @@ export const HomePage:FC = () => {
                 </HomeSubTitleStyled>
                 {isLogged ?
                     <UnderlinedButton
-                        onClick={() => redirectToProfile('me')}
+                        onClick={redirectToUserProfile}
                         size={'large'}
                         id={'redirectToProfileButton'}
                     >

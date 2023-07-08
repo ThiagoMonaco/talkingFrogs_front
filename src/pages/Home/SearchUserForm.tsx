@@ -2,14 +2,16 @@ import { FC } from 'react'
 import { Form, Formik } from 'formik'
 import { Input, MainButton } from '@/components'
 import { SearchUserFormContainerStyled } from '@/pages/Home/styles'
+import { useRouter } from 'next/navigation'
 
 export const SearchUserForm: FC = () => {
+    const router = useRouter()
     const initialValues = {
         username: ''
     }
 
     const searchUser = (values) => {
-        console.log(values.username)
+        router.push(`/user/${values.username}`)
     }
 
 
