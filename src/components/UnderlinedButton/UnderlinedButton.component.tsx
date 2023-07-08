@@ -6,11 +6,24 @@ interface UnderlinedButtonComponentProps {
     children: ReactNode
     color?: string
     onClick?: () => void
+    size?: 'medium' | 'large'
 }
 
-export const UnderlinedButton: FC<UnderlinedButtonComponentProps> = ({ id, children, color, onClick, ...rest }) => {
+export const UnderlinedButton: FC<UnderlinedButtonComponentProps> = ({
+    id,
+    children,
+    color,
+    onClick,
+    size = 'medium',
+    ...rest }) => {
     return (
-        <UnderlinedButtonStyled id={id} onClick={onClick} color={color} {...rest}>
+        <UnderlinedButtonStyled
+            id={id}
+            onClick={onClick}
+            color={color}
+            size={size}
+            {...rest}
+        >
             {children}
         </UnderlinedButtonStyled>
     )
