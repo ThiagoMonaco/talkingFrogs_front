@@ -1,6 +1,22 @@
 import styled, { keyframes } from 'styled-components'
 
-export const HomeContainerStyled = styled.div`
+interface HomeContainerProps {
+    isUnmounting: boolean
+}
+
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-40%);
+    opacity: 0;
+  }
+`
+
+export const HomeContainerStyled = styled.div<HomeContainerProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,6 +24,7 @@ export const HomeContainerStyled = styled.div`
   max-width: 510px;
   margin: 0 auto;
   padding: 0 15px;
+  animation: ${({isUnmounting}) => isUnmounting ? slideOut : 'none'} 0.5s forwards ease-in-out;
 `
 
 export const HomeSubTitleStyled = styled.h2`

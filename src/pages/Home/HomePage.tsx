@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import {
     HomeAuthButtonsContainerStyled,
     HomeContainerStyled,
@@ -15,21 +15,31 @@ import { useRouter } from 'next/navigation'
 export const HomePage:FC = () => {
     const router = useRouter()
     const { isLogged, userData } = useContext(UserContext)
+    const [isUnmounting, setIsUnmounting] = useState(false)
 
     const redirectToUserProfile = () => {
-        router.push(`/user/${userData.name}`)
+        setIsUnmounting(true)
+        setTimeout(() => {
+            router.push(`/user/${userData.name}`)
+        }, 750)
     }
 
     const redirectToLogin = () => {
-        router.push('/auth/login')
+        setIsUnmounting(true)
+        setTimeout(() => {
+            router.push('/auth/login')
+        }, 750)
     }
 
     const redirectToSignup = () => {
-        router.push('/auth/register')
+        setIsUnmounting(true)
+        setTimeout(() => {
+            router.push('/auth/register')
+        }, 750)
     }
 
     return (
-        <HomeContainerStyled>
+        <HomeContainerStyled isUnmounting={isUnmounting}>
             <Logo textAnimationDelay={0.5}/>
             <HomeContentContainerStyled>
                 <HomeSubTitleStyled>
