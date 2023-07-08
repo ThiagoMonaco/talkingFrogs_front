@@ -30,7 +30,7 @@ export const HomePage:FC = () => {
 
     return (
         <HomeContainerStyled>
-            <Logo />
+            <Logo textAnimationDelay={0.5}/>
             <HomeContentContainerStyled>
                 <HomeSubTitleStyled>
                     Ask anything to your friends!

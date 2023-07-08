@@ -41,12 +41,16 @@ const slideOutLeft = keyframes`
     }
 `
 
-export const LogoTextStyled = styled.h1`
+interface LogoTextProps {
+    textAnimationDelay: number
+}
+
+export const LogoTextStyled = styled.h1<LogoTextProps>`
   font-size: ${({ theme }) => theme.fontSize.xlarge};
   line-height: 35px;
   opacity: 0;
   transform: translateX(-50%);
   animation: ${slideOutLeft} 0.5s forwards;
-  animation-delay: 1.5s;
+  animation-delay: ${({ textAnimationDelay }) => textAnimationDelay}s;
   text-align: left;
 `

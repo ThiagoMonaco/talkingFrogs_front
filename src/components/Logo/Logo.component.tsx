@@ -5,9 +5,13 @@ import { useRouter } from 'next/navigation'
 
 interface LogoProps {
     onClick?: () => void
+    textAnimationDelay?: number
 }
 
-export const Logo :FC<LogoProps> = ({onClick = () => {}}) => {
+export const Logo :FC<LogoProps> = ({
+    onClick = () => {},
+    textAnimationDelay = 1.5
+    }) => {
     const router = useRouter()
 
     const handleClick = async () => {
@@ -18,7 +22,7 @@ export const Logo :FC<LogoProps> = ({onClick = () => {}}) => {
     return (
             <LogoStyled onClick={handleClick} className={'animation-delay'}>
                 <LogoImage />
-                <LogoTextStyled>
+                <LogoTextStyled textAnimationDelay={textAnimationDelay}>
                     Talking <br/>
                     Frogs
                 </LogoTextStyled>
