@@ -1,7 +1,12 @@
 'use client'
 
 import { FC, useContext } from 'react'
-import { HomeAuthButtonsContainerStyled, HomeContainerStyled, HomeSubTitleStyled } from '@/pages/Home/styles'
+import {
+    HomeAuthButtonsContainerStyled,
+    HomeContainerStyled,
+    HomeContentContainerStyled,
+    HomeSubTitleStyled
+} from '@/pages/Home/styles'
 import { Logo, UnderlinedButton } from '@/components'
 import { SearchUserForm } from '@/pages/Home/SearchUserForm'
 import { UserContext } from '@/context/UserContext'
@@ -26,38 +31,40 @@ export const HomePage:FC = () => {
     return (
         <HomeContainerStyled>
             <Logo />
-            <HomeSubTitleStyled>
-                Ask anything to your friends!
-            </HomeSubTitleStyled>
-            <SearchUserForm />
-            <HomeSubTitleStyled>
-                or take a look at what they are asking you!
-            </HomeSubTitleStyled>
-            {isLogged ?
-                <UnderlinedButton
-                    onClick={() => redirectToProfile('me')}
-                    size={'large'}
-                    id={'redirectToProfileButton'}
-                >
-                    My profile
-                </UnderlinedButton> :
-                <HomeAuthButtonsContainerStyled>
+            <HomeContentContainerStyled>
+                <HomeSubTitleStyled>
+                    Ask anything to your friends!
+                </HomeSubTitleStyled>
+                <SearchUserForm />
+                <HomeSubTitleStyled>
+                    or take a look at what they are asking you!
+                </HomeSubTitleStyled>
+                {isLogged ?
                     <UnderlinedButton
+                        onClick={() => redirectToProfile('me')}
                         size={'large'}
-                        id={'signUpButton'}
-                        onClick={redirectToSignup}
+                        id={'redirectToProfileButton'}
                     >
-                        Sign up
-                    </UnderlinedButton>
-                    <UnderlinedButton
-                        size={'large'}
-                        id={'signInButton'}
-                        onClick={redirectToLogin}
-                    >
-                        Sign in
-                    </UnderlinedButton>
-                </HomeAuthButtonsContainerStyled>
-            }
+                        My profile
+                    </UnderlinedButton> :
+                    <HomeAuthButtonsContainerStyled>
+                        <UnderlinedButton
+                            size={'large'}
+                            id={'signUpButton'}
+                            onClick={redirectToSignup}
+                        >
+                            Sign up
+                        </UnderlinedButton>
+                        <UnderlinedButton
+                            size={'large'}
+                            id={'signInButton'}
+                            onClick={redirectToLogin}
+                        >
+                            Sign in
+                        </UnderlinedButton>
+                    </HomeAuthButtonsContainerStyled>
+                }
+            </HomeContentContainerStyled>
         </HomeContainerStyled>
     );
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const HomeContainerStyled = styled.div`
   display: flex;
@@ -29,4 +29,23 @@ export const SearchUserFormContainerStyled = styled.div`
 export const HomeAuthButtonsContainerStyled = styled.div`
   display: flex;
   gap: 25px;
+`
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(-40%);
+    opacity: 0;
+  }
+  
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`
+
+export const HomeContentContainerStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: ${slideIn} 0.5s ease-in-out;
 `
