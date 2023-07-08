@@ -25,6 +25,13 @@ export const LogoStyled = styled.button`
   align-items: center;
   gap: 15px;
   animation: ${slideInTop} 0.5s forwards;
+  
+  @media (max-width: 400px) {
+    > svg {
+      width: 150px;
+      height: 150px;
+    }
+  }
 `
 
 const slideOutLeft = keyframes`
