@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const UserPageContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const UserPageTitleStyled = styled.h1`
