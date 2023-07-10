@@ -9,12 +9,15 @@ export const AskModeCardStyled = styled.div`
 
 export const AskModeCardTextArea = styled.textarea`
   width: 100%;
-  height: 155px;
+  height: 170px;
   border: none;
   border-radius: 10px;
   resize: none;
   font-size: ${({theme}) => theme.fontSize.medium};
   outline: none;
+  background: transparent;
+  color: ${({theme}) => theme.colors.black};
+  font-weight: 600;
 `
 
 const slideOutBottom = keyframes`

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useRef, useState } from 'react'
+import { ChangeEvent, FC, RefObject, useRef, useState } from 'react'
 import {
     AskModeCardActions, AskModeCardButton,
     AskModeCardInputCounter,
@@ -6,8 +6,13 @@ import {
     AskModeCardTextArea
 } from '@components/QuestionCard/AskMode/styles'
 
-export const AskModeCard: FC = () => {
+interface AskModeCardProps {
+    questionCardRef: RefObject<HTMLDivElement>
+}
+
+export const AskModeCard: FC<AskModeCardProps> = ({ questionCardRef }) => {
     const actionsRef = useRef<HTMLDivElement>(null)
+    const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const [text, setText] = useState('')
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
@@ -17,18 +22,24 @@ export const AskModeCard: FC = () => {
         actionsRef.current?.classList.add('hidden-actions')
     }
 
+    const handleChangeBackgroundColor = () => {
+        questionCardRef.current?.classList.add('ask-mode-transition')
+    }
+
+    const blockTextArea = () => {
+        textAreaRef.current?.setAttribute('disabled', 'true')
+    }
+
     const handleClickButton = () => {
         hideCardActions()
-        console.log(text)
-        // descer botao e contador
-        // mudar background
-        // mudar cor caractere
+        handleChangeBackgroundColor()
+        blockTextArea()
         //descer card
     }
 
     return (
         <AskModeCardStyled>
-            <AskModeCardTextArea maxLength={250} onChange={handleInputChange}/>
+            <AskModeCardTextArea ref={textAreaRef} maxLength={250} onChange={handleInputChange}/>
             <AskModeCardActions ref={actionsRef}>
                 <AskModeCardInputCounter>
                     {text.length}/250

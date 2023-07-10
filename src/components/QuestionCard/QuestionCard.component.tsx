@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useRef } from 'react'
 import { QuestionCardStyled } from '@components/QuestionCard/styles'
 import { AskModeCard } from '@components/QuestionCard/AskMode/AskModeCard.component'
 
@@ -7,10 +7,15 @@ interface QuestionCardProps {
 }
 
 export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = true }) => {
+    const questionCardRef = useRef<HTMLDivElement>(null)
+
     return (
-        <QuestionCardStyled>
+        <QuestionCardStyled
+            className={isAskMode ? 'ask-mode' : ''}
+            ref={questionCardRef}
+        >
             {isAskMode ?
-                <AskModeCard />
+                <AskModeCard questionCardRef={questionCardRef} />
                 :
                 null
             }
