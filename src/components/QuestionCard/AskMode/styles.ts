@@ -1,25 +1,50 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 
 export const AskModeCardStyled = styled.div`
   width: 100%;
   height: 100%;
+  cursor: text;
+  position: relative;
 `
 
 export const AskModeCardTextArea = styled.textarea`
   width: 100%;
-  height: 165px;
+  height: 155px;
   border: none;
   border-radius: 10px;
   resize: none;
   font-size: ${({theme}) => theme.fontSize.medium};
+  outline: none;
 `
 
+const slideOutBottom = keyframes`
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  to {
+    transform: translateY(70%);
+    opacity: 0;
+    display: none;
+  }
+`
 
 export const AskModeCardActions = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  
+  &.hidden-actions {
+    animation: ${slideOutBottom} 0.3s ease-in-out forwards;
+    cursor: default;
+    
+    & > * {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
 `
 
 export const AskModeCardInputCounter = styled.p`
