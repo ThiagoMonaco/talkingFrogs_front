@@ -25,6 +25,6 @@ export const UserPage: FC<UserPageProps> = ({ username }) => {
         <UserPageTitleStyled>
             {username}
         </UserPageTitleStyled>
-        <QuestionCard />
+        <QuestionCard username={username}/>
     </UserPageContainer>
 }

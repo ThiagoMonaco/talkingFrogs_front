@@ -4,9 +4,10 @@ import { AskModeCard } from '@components/QuestionCard/AskMode/AskModeCard.compon
 
 interface QuestionCardProps {
     isAskMode?: boolean
+    username: string
 }
 
-export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = true }) => {
+export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = true, username }) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
 
     return (
@@ -15,7 +16,7 @@ export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = true }) => {
             ref={questionCardRef}
         >
             {isAskMode ?
-                <AskModeCard questionCardRef={questionCardRef} />
+                <AskModeCard username={username} questionCardRef={questionCardRef} />
                 :
                 null
             }

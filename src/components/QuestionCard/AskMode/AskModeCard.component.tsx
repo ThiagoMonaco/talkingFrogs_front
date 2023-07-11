@@ -5,12 +5,14 @@ import {
     AskModeCardStyled,
     AskModeCardTextArea
 } from '@components/QuestionCard/AskMode/styles'
+import api from '@/infra/api/api'
 
 interface AskModeCardProps {
     questionCardRef: RefObject<HTMLDivElement>
+    username: string
 }
 
-export const AskModeCard: FC<AskModeCardProps> = ({ questionCardRef }) => {
+export const AskModeCard: FC<AskModeCardProps> = ({ questionCardRef, username }) => {
     const actionsRef = useRef<HTMLDivElement>(null)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
     const [text, setText] = useState('')
@@ -30,11 +32,15 @@ export const AskModeCard: FC<AskModeCardProps> = ({ questionCardRef }) => {
         textAreaRef.current?.setAttribute('disabled', 'true')
     }
 
-    const handleClickButton = () => {
+    const sendQuestion = async () => {
+        await api.askQuestion({ username, question: text })
+    }
+
+    const handleClickButton = async () => {
         hideCardActions()
         handleChangeBackgroundColor()
         blockTextArea()
-        //descer card
+        await sendQuestion()
     }
 
     return (
