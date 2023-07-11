@@ -7,7 +7,7 @@ interface QuestionCardProps {
     username: string
 }
 
-export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = true, username }) => {
+export const QuestionCard:FC<QuestionCardProps> = ({ isAskMode = false, username }) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
 
     return (

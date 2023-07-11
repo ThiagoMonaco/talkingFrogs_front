@@ -17,14 +17,19 @@ export const UserPage: FC<UserPageProps> = ({ username }) => {
     }
 
     useEffect( () => {
-        const data = getUserData()
-        console.log(data)
+        getUserData().then((res) => {
+            const { data, status } = res
+            setQuestions(data.questions)
+        })
     }, [username])
 
     return <UserPageContainer>
         <UserPageTitleStyled>
             {username}
         </UserPageTitleStyled>
-        <QuestionCard username={username}/>
+        <QuestionCard isAskMode={true} username={username}/>
+        {questions.map(question => {
+            return <QuestionCard key={question.questionId} username={username}/>
+        })}
     </UserPageContainer>
 }
