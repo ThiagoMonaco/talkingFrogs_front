@@ -13,3 +13,10 @@ export const UserPageTitleStyled = styled.h1`
   justify-content: center;
   width: 100%;
 `
+
+export const NewQuestionsList = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+  width: 100%;
+`

@@ -81,13 +81,7 @@ const slideOutBottom = keyframes`
     opacity: 1;
   }
   
-  50% {
-    transform: translateY(70%);
-    opacity: 0;
-  }
-  
   100% {
-    //height: 0;
     display: none;
     transform: translateY(70%);
     opacity: 0;

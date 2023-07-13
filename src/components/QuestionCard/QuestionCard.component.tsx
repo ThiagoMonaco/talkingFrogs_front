@@ -13,9 +13,14 @@ interface QuestionCardProps {
     isInitialAskMode?: boolean
     preText?: string
     username: string
+    handleAskQuestion?: () => void
 }
 
-export const QuestionCard:FC<QuestionCardProps> = ({ isInitialAskMode = false, username, preText = '' }) => {
+export const QuestionCard:FC<QuestionCardProps> = ({
+    handleAskQuestion = () => {},
+    isInitialAskMode = false,
+    username,
+    preText = '' }) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
     const actionsRef = useRef<HTMLDivElement>(null)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -49,6 +54,7 @@ export const QuestionCard:FC<QuestionCardProps> = ({ isInitialAskMode = false, u
         blockTextArea()
         await sendQuestion()
         setIsAsking(false)
+        handleAskQuestion()
     }
 
     const getCardClassName = () => {
