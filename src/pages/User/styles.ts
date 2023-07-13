@@ -4,6 +4,7 @@ export const UserPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 `
 
 export const UserPageTitleStyled = styled.h1`

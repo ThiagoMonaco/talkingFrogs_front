@@ -4,6 +4,7 @@ import { UserPageContainer, UserPageTitleStyled } from '@/pages/User/styles'
 import { QuestionCard } from '@/components'
 import api from '@/infra/api/api'
 import { QuestionModel } from '@/domain/models/questionModel'
+import { text } from 'stream/consumers'
 
 interface UserPageProps {
     username: string
@@ -27,9 +28,9 @@ export const UserPage: FC<UserPageProps> = ({ username }) => {
         <UserPageTitleStyled>
             {username}
         </UserPageTitleStyled>
-        <QuestionCard isAskMode={true} username={username}/>
+        <QuestionCard isInitialAskMode={true} username={username}/>
         {questions.map(question => {
-            return <QuestionCard key={question.questionId} username={username}/>
+            return <QuestionCard preText={question.question} key={question.questionId} username={username}/>
         })}
     </UserPageContainer>
 }
