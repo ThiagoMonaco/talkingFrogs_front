@@ -23,8 +23,11 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
     }
 
     const getNewQuestion = () => {
-        return <QuestionCard key={newQuestions.length} handleAskQuestion={addNewQuestion} isInitialAskMode={true}
-                             username={username}/>
+        return <QuestionCard key={newQuestions.length}
+                             handleAskQuestion={addNewQuestion}
+                             isInitialAskMode={true}
+                             username={username}
+                />
     }
 
     useEffect(() => {

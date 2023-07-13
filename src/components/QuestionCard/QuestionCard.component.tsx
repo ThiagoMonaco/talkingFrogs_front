@@ -53,8 +53,8 @@ export const QuestionCard:FC<QuestionCardProps> = ({
         handleChangeBackgroundColor()
         blockTextArea()
         await sendQuestion()
-        setIsAsking(false)
         handleAskQuestion()
+        setIsAsking(false)
     }
 
     const getCardClassName = () => {

@@ -12,7 +12,17 @@ const changeQuestionCardHeight = keyframes`
   }
 `
 
-export const QuestionCardStyled = styled.div`
+const openQuestionCard = keyframes`
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 255px;
+  }
+`
+
+export const QuestionCardStyled = styled . div`
   width: 100%;
   border-left: 2.5px solid ${({theme}) => theme.colors.black};
   border-right: 4px solid ${({theme}) => theme.colors.black};
@@ -21,10 +31,12 @@ export const QuestionCardStyled = styled.div`
   border-radius: 10px;
   padding: 15px;
   background: ${({theme}) => theme.colors.lightYellow};
+  overflow: hidden;
   
   &.ask-mode {
     background: ${({theme}) => theme.colors.white};
-    max-height: 255px;
+    //max-height: 255px;
+    animation: ${openQuestionCard} 1s ease forwards;
     cursor: text;
   }
 
@@ -86,10 +98,9 @@ const slideOutBottom = keyframes`
     transform: translateY(70%);
     opacity: 0;
   }
-  
 `
 
-export const AskModeCardActions = styled.div`
+export const AskModeCardActions = styled . div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
