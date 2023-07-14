@@ -6,7 +6,7 @@ import {
     AskModeCardButton,
     AskModeCardInputCounter,
     AskCardStyled,
-    AskModeCardTextArea, CardQuestionText
+    AskModeCardTextArea, CardQuestionText, QuestionCardAnswerBox, QuestionCardAnswerInput
 } from '@components/QuestionCard/styles'
 
 interface QuestionCardProps {
@@ -14,44 +14,52 @@ interface QuestionCardProps {
     preText?: string
     username: string
     handleAskQuestion?: () => void
+    canAnswer?: boolean
 }
 
 export const QuestionCard:FC<QuestionCardProps> = ({
     handleAskQuestion = () => {},
     isInitialAskMode = false,
     username,
+    canAnswer = false,
     preText = '' }) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
     const actionsRef = useRef<HTMLDivElement>(null)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
+    const answerTextAreaRef = useRef<HTMLTextAreaElement>(null)
 
     const [text, setText] = useState(preText)
     const [isAsking, setIsAsking] = useState(isInitialAskMode)
+    const [answer, setAnswer] = useState('')
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
     }
 
-    const hideCardActions = () => {
-        actionsRef.current?.classList.add('hidden-actions')
+    const handleAnswerChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setAnswer(event.target.value)
     }
 
-    const handleChangeBackgroundColor = () => {
-        questionCardRef.current?.classList.add('ask-mode-transition')
+    const hideCardActions = (ref) => {
+        ref.current?.classList.add('hidden-actions')
     }
 
-    const blockTextArea = () => {
-        textAreaRef.current?.setAttribute('disabled', 'true')
+    const handleChangeBackgroundColor = (ref) => {
+        ref.current?.classList.add('ask-mode-transition')
+    }
+
+    const blockTextArea = (ref) => {
+        ref.current?.setAttribute('disabled', 'true')
     }
 
     const sendQuestion = async () => {
         await api.askQuestion({ username, question: text })
     }
 
-    const handleClickButton = async () => {
-        hideCardActions()
-        handleChangeBackgroundColor()
-        blockTextArea()
+    const handleAskButton = async () => {
+        hideCardActions(actionsRef)
+        handleChangeBackgroundColor(questionCardRef)
+        blockTextArea(textAreaRef)
         await sendQuestion()
         handleAskQuestion()
         setIsAsking(false)
@@ -64,6 +72,10 @@ export const QuestionCard:FC<QuestionCardProps> = ({
 
         if(isInitialAskMode && !isAsking) {
             return 'transition-mode'
+        }
+
+        if(canAnswer) {
+            return 'answer-mode'
         }
 
         return 'default-mode'
@@ -85,11 +97,24 @@ export const QuestionCard:FC<QuestionCardProps> = ({
                         <AskModeCardInputCounter>
                             {text.length}/250
                         </AskModeCardInputCounter>
-                        <AskModeCardButton onClick={handleClickButton}>
+                        <AskModeCardButton onClick={handleAskButton}>
                             Ask!
                         </AskModeCardButton>
                     </AskModeCardActions>
                 )}
+                {canAnswer &&
+                    <QuestionCardAnswerBox>
+                        <QuestionCardAnswerInput ref={answerTextAreaRef} maxLength={250} onChange={handleAnswerChange} />
+                        <AskModeCardActions ref={actionsRef}>
+                            <AskModeCardInputCounter>
+                                {answer.length}/250
+                            </AskModeCardInputCounter>
+                            <AskModeCardButton onClick={handleAskButton}>
+                                Answer!
+                            </AskModeCardButton>
+                        </AskModeCardActions>
+                    </QuestionCardAnswerBox>
+                }
             </AskCardStyled>
         </QuestionCardStyled>
     )

@@ -35,7 +35,6 @@ export const QuestionCardStyled = styled . div`
   
   &.ask-mode {
     background: ${({theme}) => theme.colors.white};
-    //max-height: 255px;
     animation: ${openQuestionCard} 1s ease forwards;
     cursor: text;
   }
@@ -52,6 +51,31 @@ export const QuestionCardStyled = styled . div`
     animation: ${changeQuestionCardHeight} 1s ease forwards;
     animation-delay: 0.3s;
   }
+  
+  &.answer-mode {
+    max-height: 455px;
+  }
+`
+
+export const QuestionCardAnswerInput = styled.textarea`
+  height: 170px;
+  resize: none;
+  font-size: ${({theme}) => theme.fontSize.medium};
+  outline: none;
+  color: ${({theme}) => theme.colors.black};
+  font-weight: 600;
+  width: 100%;
+  border: none;
+  `
+
+export const QuestionCardAnswerBox = styled.div`
+  width: 100%;
+  padding: 5px;
+  border-left: 2.5px solid ${({theme}) => theme.colors.black};
+  border-right: 4px solid ${({theme}) => theme.colors.black};
+  border-bottom: 4px solid ${({theme}) => theme.colors.black};
+  border-top: 2.5px solid ${({theme}) => theme.colors.black};  border-radius: 10px;
+  background: ${({theme}) => theme.colors.white};
 `
 
 export const AskCardStyled = styled.div`
