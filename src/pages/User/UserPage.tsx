@@ -1,18 +1,21 @@
 'use client'
-import { FC, useEffect, useState } from 'react'
-import { NewQuestionsList, UserPageContainer, UserPageTitleStyled } from '@/pages/User/styles'
+import { FC, useContext, useEffect, useState } from 'react'
+import { LogoutButtonStyled, NewQuestionsList, UserPageContainer, UserPageTitleStyled } from '@/pages/User/styles'
 import { QuestionCard } from '@/components'
 import api from '@/infra/api/api'
 import { QuestionModel } from '@/domain/models/questionModel'
 import { text } from 'stream/consumers'
+import { UserContext } from '@/context/UserContext'
 
 interface UserPageProps {
     username: string
 }
 
 export const UserPage: FC<UserPageProps> = ({username}) => {
+    const { userData, logOutUser } = useContext(UserContext)
     const [questions, setQuestions] = useState<QuestionModel[]>([])
     const [newQuestions, setNewQuestions] = useState<any>([])
+    const [isFromUser, setIsFromUser] = useState<boolean>(false)
 
     const getUserData = async () => {
         return await api.getUserData({username})
@@ -34,6 +37,7 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
         getUserData().then((res) => {
             const {data, status} = res
             setQuestions(data.questions)
+            setIsFromUser(username === userData.name)
         })
     }, [username])
 
@@ -42,12 +46,15 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
     }, [])
 
     return <UserPageContainer>
+        {isFromUser && <LogoutButtonStyled onClick={logOutUser}> Logout </LogoutButtonStyled>}
         <UserPageTitleStyled>
             {username}
         </UserPageTitleStyled>
-        <NewQuestionsList>
-            {newQuestions.map((question: any) => question)}
-        </NewQuestionsList>
+        {!isFromUser && (
+            <NewQuestionsList>
+                {newQuestions.map((question: any) => question)}
+            </NewQuestionsList>
+        )}
         {questions.map(question => {
             return <QuestionCard preText={question.question} key={question.questionId} username={username}/>
         })}

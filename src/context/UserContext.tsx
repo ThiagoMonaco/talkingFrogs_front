@@ -1,5 +1,6 @@
 'use client'
 import { createContext, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface UserDataContextProps {
     name: string
@@ -12,7 +13,7 @@ interface UserContextProps {
     setIsLogged: (isLogged: boolean) => void
     userData: UserDataContextProps
     setUserData: (userData: UserDataContextProps) => void
-    logoffUser: () => void
+    logOutUser: () => void
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -23,28 +24,29 @@ export const UserContext = createContext<UserContextProps>({
         isEmailVerified: false
     },
     setUserData: () => {},
-    logoffUser: () => {}
+    logOutUser: () => {}
 })
 
 export const UserProvider = ({ children }) => {
+    const router = useRouter()
     const [isLogged, setIsLogged] = useState(false)
     const [userData, setUserData] = useState<UserDataContextProps>({
         name: '',
         isEmailVerified: false
     })
 
-    const logoffUser = () => {
+    const logOutUser = () => {
         setUserData({
             name: '',
             isEmailVerified: false,
             email: ''
         })
-
         setIsLogged(false)
+        router.push('/')
     }
 
     return (
-        <UserContext.Provider value={{ logoffUser, isLogged, setIsLogged, userData, setUserData }}>
+        <UserContext.Provider value={{ logOutUser, isLogged, setIsLogged, userData, setUserData }}>
             {children}
         </UserContext.Provider>
     )
