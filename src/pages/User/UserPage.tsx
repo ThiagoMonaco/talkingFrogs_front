@@ -56,7 +56,14 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
             </NewQuestionsList>
         )}
         {questions.map(question => {
-            return <QuestionCard canAnswer={isFromUser} preText={question.question} key={question.questionId} username={username}/>
+            return <QuestionCard
+                preAnswer={question.answer ? question.answer : ''}
+                canAnswer={isFromUser}
+                preText={question.question}
+                key={question.questionId}
+                username={username}
+                questionId={question.questionId}
+            />
         })}
     </UserPageContainer>
 }

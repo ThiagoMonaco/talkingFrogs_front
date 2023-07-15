@@ -6,7 +6,12 @@ import {
     AskModeCardButton,
     AskModeCardInputCounter,
     AskCardStyled,
-    AskModeCardTextArea, CardQuestionText, QuestionCardAnswerBox, QuestionCardAnswerInput
+    AskModeCardTextArea,
+    CardQuestionText,
+    QuestionCardAnswerBox,
+    QuestionCardAnswerInput,
+    PreAnsweredStyle,
+    DeleteQuestionButtonStyled
 } from '@components/QuestionCard/styles'
 
 interface QuestionCardProps {
@@ -15,14 +20,18 @@ interface QuestionCardProps {
     username: string
     handleAskQuestion?: () => void
     canAnswer?: boolean
+    preAnswer?: string
+    questionId?: string
 }
 
 export const QuestionCard:FC<QuestionCardProps> = ({
     handleAskQuestion = () => {},
     isInitialAskMode = false,
+    questionId = '',
     username,
     canAnswer = false,
-    preText = '' }) => {
+    preText = '',
+    preAnswer = ''}) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
     const actionsRef = useRef<HTMLDivElement>(null)
     const textAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -30,7 +39,9 @@ export const QuestionCard:FC<QuestionCardProps> = ({
 
     const [text, setText] = useState(preText)
     const [isAsking, setIsAsking] = useState(isInitialAskMode)
-    const [answer, setAnswer] = useState('')
+    const [answer, setAnswer] = useState(preAnswer)
+
+    console.log('preAnswer', preAnswer)
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
@@ -66,6 +77,10 @@ export const QuestionCard:FC<QuestionCardProps> = ({
     }
 
     const getCardClassName = () => {
+        if(canAnswer || preAnswer !== '') {
+            return 'answer-mode'
+        }
+
         if(isInitialAskMode && isAsking) {
             return 'ask-mode'
         }
@@ -74,11 +89,19 @@ export const QuestionCard:FC<QuestionCardProps> = ({
             return 'transition-mode'
         }
 
-        if(canAnswer) {
-            return 'answer-mode'
-        }
-
         return 'default-mode'
+    }
+
+    const handleAnswerButton = async () => {
+        hideCardActions(actionsRef)
+        handleChangeBackgroundColor(questionCardRef)
+        blockTextArea(answerTextAreaRef)
+        await api.answerQuestion({questionId, answer})
+        setIsAsking(false)
+    }
+
+    const handleDeleteQuestion = async () => {
+        await api.deleteQuestion({questionId})
     }
 
     return (
@@ -87,6 +110,7 @@ export const QuestionCard:FC<QuestionCardProps> = ({
             ref={questionCardRef}
         >
             <AskCardStyled>
+                {canAnswer && <DeleteQuestionButtonStyled onClick={handleDeleteQuestion}> delete </DeleteQuestionButtonStyled>}
                 {isAsking ?
                     <AskModeCardTextArea ref={textAreaRef} maxLength={250} onChange={handleInputChange}/>
                     :
@@ -102,17 +126,22 @@ export const QuestionCard:FC<QuestionCardProps> = ({
                         </AskModeCardButton>
                     </AskModeCardActions>
                 )}
-                {canAnswer &&
+                {(canAnswer || preAnswer !== '') &&
                     <QuestionCardAnswerBox>
-                        <QuestionCardAnswerInput ref={answerTextAreaRef} maxLength={250} onChange={handleAnswerChange} />
-                        <AskModeCardActions ref={actionsRef}>
-                            <AskModeCardInputCounter>
-                                {answer.length}/250
-                            </AskModeCardInputCounter>
-                            <AskModeCardButton onClick={handleAskButton}>
-                                Answer!
-                            </AskModeCardButton>
-                        </AskModeCardActions>
+                        {preAnswer === '' ? <>
+                            <QuestionCardAnswerInput ref={answerTextAreaRef} maxLength={250} onChange={handleAnswerChange} />
+                            <AskModeCardActions ref={actionsRef}>
+                                <AskModeCardInputCounter>
+                                    {answer.length}/250
+                                </AskModeCardInputCounter>
+                                <AskModeCardButton onClick={handleAnswerButton}>
+                                    Answer!
+                                </AskModeCardButton>
+                            </AskModeCardActions>
+                        </>
+                            :
+                            <PreAnsweredStyle>{answer}</PreAnsweredStyle>
+                        }
                     </QuestionCardAnswerBox>
                 }
             </AskCardStyled>

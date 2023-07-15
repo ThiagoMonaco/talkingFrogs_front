@@ -4,6 +4,8 @@ import { validateEmailToken } from '@/infra/api/routes/validateEmailTokenRoute'
 import { resendEmailToken } from '@/infra/api/routes/resendEmailTokenRoute'
 import { getUserData } from '@/infra/api/routes/getUserDataRoute'
 import { askQuestion } from '@/infra/api/routes/askQuestionRoute'
+import { answerQuestion } from '@/infra/api/routes/answerQuestionRoute'
+import { deleteQuestion } from '@/infra/api/routes/deleteQuestionRoute'
 
 export default {
 	createAccount,
@@ -11,5 +13,7 @@ export default {
 	validateEmailToken,
 	resendEmailToken,
 	getUserData,
-	askQuestion
+	askQuestion,
+	answerQuestion,
+	deleteQuestion
 }

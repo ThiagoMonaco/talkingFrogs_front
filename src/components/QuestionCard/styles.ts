@@ -66,7 +66,15 @@ export const QuestionCardAnswerInput = styled.textarea`
   font-weight: 600;
   width: 100%;
   border: none;
+  background: transparent;
   `
+
+export const PreAnsweredStyle = styled.p`
+  width: 100%;
+  font-weight: bold;
+  margin: 0;
+  padding: 10px;
+`
 
 export const QuestionCardAnswerBox = styled.div`
   width: 100%;
@@ -82,6 +90,8 @@ export const AskCardStyled = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;;
 `
 
 export const AskModeCardTextArea = styled.textarea`
@@ -99,7 +109,8 @@ export const AskModeCardTextArea = styled.textarea`
 
 export const CardQuestionText = styled.p`
   width: 100%;
-  height: 170px;
+  max-height: 170px;
+  min-height: 100px;
   border: none;
   border-radius: 10px;
   resize: none;
@@ -109,6 +120,20 @@ export const CardQuestionText = styled.p`
   color: ${({theme}) => theme.colors.black};
   font-weight: 600;
   margin: 0;
+`
+
+export const DeleteQuestionButtonStyled = styled.button`
+  border-top: 2px solid ${props => props.theme.colors.black};
+  border-right: 3px solid ${props => props.theme.colors.black};
+  border-bottom: 3px solid ${props => props.theme.colors.black};
+  border-left: 2px solid ${props => props.theme.colors.black};
+  border-radius: 10px;
+  background-color: ${({theme}) => theme.colors.red};
+  font-weight: bolder;
+  padding: 5px 10px;
+  font-size: ${({theme}) => theme.fontSize.small};
+  cursor: pointer;
+  align-self: flex-end;
 `
 
 const slideOutBottom = keyframes`
