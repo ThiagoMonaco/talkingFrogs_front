@@ -1,6 +1,7 @@
 'use client'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import api from '@/infra/api/api'
 
 interface UserDataContextProps {
     name: string
@@ -34,6 +35,22 @@ export const UserProvider = ({ children }) => {
         name: '',
         isEmailVerified: false
     })
+
+    useEffect(() => {
+        api.getUserDataByToken().then((res) => {
+            if(res.status !== 200) {
+                return
+            }
+            setUserData({
+                name: res.data.name,
+                email: res.data.email,
+                isEmailVerified: true
+            })
+
+            setIsLogged(true)
+        })
+
+    }, [])
 
     const logOutUser = () => {
         setUserData({

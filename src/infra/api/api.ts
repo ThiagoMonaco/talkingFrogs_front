@@ -6,6 +6,7 @@ import { getUserData } from '@/infra/api/routes/getUserDataRoute'
 import { askQuestion } from '@/infra/api/routes/askQuestionRoute'
 import { answerQuestion } from '@/infra/api/routes/answerQuestionRoute'
 import { deleteQuestion } from '@/infra/api/routes/deleteQuestionRoute'
+import { getUserDataByToken } from '@/infra/api/routes/getUserDataByTokenRoute'
 
 export default {
 	createAccount,
@@ -15,5 +16,6 @@ export default {
 	getUserData,
 	askQuestion,
 	answerQuestion,
-	deleteQuestion
+	deleteQuestion,
+	getUserDataByToken
 }
