@@ -40,7 +40,8 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
     useEffect(() => {
         getUserData().then((res) => {
             const {data, status} = res
-            setQuestions(data.questions)
+            const questionsReversed = data.questions.slice().reverse()
+            setQuestions(questionsReversed)
             setIsFromUser(username === userData.name)
         })
     }, [username])

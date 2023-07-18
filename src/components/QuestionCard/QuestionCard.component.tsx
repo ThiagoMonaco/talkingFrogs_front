@@ -105,7 +105,10 @@ export const QuestionCard:FC<QuestionCardProps> = ({
     }
 
     const handleDeleteQuestion = async () => {
-        await api.deleteQuestion({questionId})
+        const res = await api.deleteQuestion({questionId})
+        if(res.status !== 200) {
+            return
+        }
         setIsDeleting(true)
         setTimeout(() => {
             handleRemoveQuestion(questionId)
