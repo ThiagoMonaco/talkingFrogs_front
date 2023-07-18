@@ -12,13 +12,17 @@ interface UserPageProps {
 }
 
 export const UserPage: FC<UserPageProps> = ({username}) => {
-    const { userData, logOutUser } = useContext(UserContext)
+    const {userData, logOutUser} = useContext(UserContext)
     const [questions, setQuestions] = useState<QuestionModel[]>([])
     const [newQuestions, setNewQuestions] = useState<any>([])
     const [isFromUser, setIsFromUser] = useState<boolean>(false)
 
     const getUserData = async () => {
         return await api.getUserData({username})
+    }
+
+    const removeQuestion = (questionId: string) => {
+        setQuestions(oldQuestions => oldQuestions.filter(question => question.questionId !== questionId))
     }
 
     const addNewQuestion = () => {
@@ -30,7 +34,7 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
                              handleAskQuestion={addNewQuestion}
                              isInitialAskMode={true}
                              username={username}
-                />
+        />
     }
 
     useEffect(() => {
@@ -63,6 +67,7 @@ export const UserPage: FC<UserPageProps> = ({username}) => {
                 key={question.questionId}
                 username={username}
                 questionId={question.questionId}
+                handleRemoveQuestion={removeQuestion}
             />
         })}
     </UserPageContainer>

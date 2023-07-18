@@ -22,6 +22,7 @@ interface QuestionCardProps {
     canAnswer?: boolean
     preAnswer?: string
     questionId?: string
+    handleRemoveQuestion?: (questionId: string) => void
 }
 
 export const QuestionCard:FC<QuestionCardProps> = ({
@@ -31,6 +32,7 @@ export const QuestionCard:FC<QuestionCardProps> = ({
     username,
     canAnswer = false,
     preText = '',
+    handleRemoveQuestion = () => {},
     preAnswer = ''}) => {
     const questionCardRef = useRef<HTMLDivElement>(null)
     const actionsRef = useRef<HTMLDivElement>(null)
@@ -40,8 +42,7 @@ export const QuestionCard:FC<QuestionCardProps> = ({
     const [text, setText] = useState(preText)
     const [isAsking, setIsAsking] = useState(isInitialAskMode)
     const [answer, setAnswer] = useState(preAnswer)
-
-    console.log('preAnswer', preAnswer)
+    const [isDeleting, setIsDeleting] = useState(false)
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value)
@@ -78,6 +79,9 @@ export const QuestionCard:FC<QuestionCardProps> = ({
 
     const getCardClassName = () => {
         if(canAnswer || preAnswer !== '') {
+            if(isDeleting) {
+                return 'ask-mode deleting'
+            }
             return 'answer-mode'
         }
 
@@ -102,6 +106,10 @@ export const QuestionCard:FC<QuestionCardProps> = ({
 
     const handleDeleteQuestion = async () => {
         await api.deleteQuestion({questionId})
+        setIsDeleting(true)
+        setTimeout(() => {
+            handleRemoveQuestion(questionId)
+        }, 1000)
     }
 
     return (

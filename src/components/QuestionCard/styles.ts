@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-
+import styled, { css, keyframes } from 'styled-components'
+import { QuestionCard } from '@/components'
 
 
 const changeQuestionCardHeight = keyframes`
@@ -22,7 +22,23 @@ const openQuestionCard = keyframes`
   }
 `
 
-export const QuestionCardStyled = styled . div`
+const deleteQuestionCard = keyframes`
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  to {
+    visibility: hidden;
+    transform: translateX(-100%);
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    border: none;
+  }
+`
+
+export const QuestionCardStyled = styled.div`
   width: 100%;
   border-left: 2.5px solid ${({theme}) => theme.colors.black};
   border-right: 4px solid ${({theme}) => theme.colors.black};
@@ -32,7 +48,7 @@ export const QuestionCardStyled = styled . div`
   padding: 15px;
   background: ${({theme}) => theme.colors.lightYellow};
   overflow: hidden;
-  
+
   &.ask-mode {
     background: ${({theme}) => theme.colors.white};
     animation: ${openQuestionCard} 1s ease forwards;
@@ -43,7 +59,7 @@ export const QuestionCardStyled = styled . div`
     max-height: 190px;
     height: 100%;
   }
-  
+
   &.transition-mode {
     max-height: 255px;
     background: ${({theme}) => theme.colors.lightYellow};
@@ -51,9 +67,13 @@ export const QuestionCardStyled = styled . div`
     animation: ${changeQuestionCardHeight} 1s ease forwards;
     animation-delay: 0.3s;
   }
-  
+
   &.answer-mode {
     max-height: 455px;
+  }
+  
+  &.deleting {
+    animation: ${deleteQuestionCard} 1s forwards;
   }
 `
 
@@ -67,7 +87,7 @@ export const QuestionCardAnswerInput = styled.textarea`
   width: 100%;
   border: none;
   background: transparent;
-  `
+`
 
 export const PreAnsweredStyle = styled.p`
   width: 100%;
@@ -82,7 +102,8 @@ export const QuestionCardAnswerBox = styled.div`
   border-left: 2.5px solid ${({theme}) => theme.colors.black};
   border-right: 4px solid ${({theme}) => theme.colors.black};
   border-bottom: 4px solid ${({theme}) => theme.colors.black};
-  border-top: 2.5px solid ${({theme}) => theme.colors.black};  border-radius: 10px;
+  border-top: 2.5px solid ${({theme}) => theme.colors.black};
+  border-radius: 10px;
   background: ${({theme}) => theme.colors.white};
 `
 
@@ -141,7 +162,7 @@ const slideOutBottom = keyframes`
     transform: translateY(0);
     opacity: 1;
   }
-  
+
   100% {
     display: none;
     transform: translateY(70%);
@@ -149,16 +170,16 @@ const slideOutBottom = keyframes`
   }
 `
 
-export const AskModeCardActions = styled . div`
+export const AskModeCardActions = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  
+
   &.hidden-actions {
     animation: ${slideOutBottom} 0.5s ease-in-out forwards;
     cursor: default;
-    
+
     & > * {
       cursor: default;
       pointer-events: none;

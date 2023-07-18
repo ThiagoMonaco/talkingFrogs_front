@@ -13,7 +13,7 @@ interface AskQuestionResponse {
 
 export const askQuestion = async ({username, question}: AskQuestionRequest): Promise<HttpResponse<AskQuestionResponse>> => {
     return await httpClient.POST('/question/ask', {
-        accountName: username,
+        name: username,
         question
     })
 }

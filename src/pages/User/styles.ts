@@ -5,6 +5,7 @@ export const UserPageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding-bottom: 20px;
 `
 
 export const UserPageTitleStyled = styled.h1`
