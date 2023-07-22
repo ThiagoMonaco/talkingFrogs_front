@@ -15,6 +15,7 @@ interface UserContextProps {
     userData: UserDataContextProps
     setUserData: (userData: UserDataContextProps) => void
     logOutUser: () => void
+    isAuthorized: boolean
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -25,7 +26,8 @@ export const UserContext = createContext<UserContextProps>({
         isEmailVerified: false
     },
     setUserData: () => {},
-    logOutUser: () => {}
+    logOutUser: () => {},
+    isAuthorized: false
 })
 
 export const UserProvider = ({ children }) => {
@@ -35,19 +37,30 @@ export const UserProvider = ({ children }) => {
         name: '',
         isEmailVerified: false
     })
+    const [isAuthorized, setIsAuthorized] = useState(false)
+
+    useEffect(() => {
+        setIsAuthorized(userData.isEmailVerified && isLogged)
+    }, [isLogged, userData.isEmailVerified])
 
     useEffect(() => {
         api.getUserDataByToken().then((res) => {
             if(res.status !== 200) {
                 return
             }
+
+            const { name, email, isEmailVerified } = res.data
+
             setUserData({
-                name: res.data.name,
-                email: res.data.email,
-                isEmailVerified: true
+                name: name,
+                email: email,
+                isEmailVerified: isEmailVerified
             })
 
             setIsLogged(true)
+            if(!isEmailVerified) {
+                router.push('/auth/validate-account')
+            }
         })
 
     }, [])
@@ -63,7 +76,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ logOutUser, isLogged, setIsLogged, userData, setUserData }}>
+        <UserContext.Provider value={{ logOutUser, isLogged, setIsLogged, userData, setUserData, isAuthorized }}>
             {children}
         </UserContext.Provider>
     )

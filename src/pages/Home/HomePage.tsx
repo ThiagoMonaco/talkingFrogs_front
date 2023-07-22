@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 
 export const HomePage:FC = () => {
     const router = useRouter()
-    const { isLogged, userData } = useContext(UserContext)
+    const { isAuthorized, userData } = useContext(UserContext)
     const [isUnmounting, setIsUnmounting] = useState(false)
 
     const redirectToUserProfile = () => {
@@ -49,7 +49,7 @@ export const HomePage:FC = () => {
                 <HomeSubTitleStyled>
                     or take a look at what they are asking you!
                 </HomeSubTitleStyled>
-                {isLogged ?
+                {isAuthorized ?
                     <UnderlinedButton
                         onClick={redirectToUserProfile}
                         size={'large'}
