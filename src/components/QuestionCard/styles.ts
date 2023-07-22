@@ -204,3 +204,9 @@ export const AskModeCardButton = styled.button`
   font-weight: bold;
   cursor: pointer;
 `
+
+export const ErrorTextStyled = styled.p`
+  color: ${({theme}) => theme.colors.red};
+  font-size: ${({theme}) => theme.fontSize.small};
+  font-weight: bold;
+`
